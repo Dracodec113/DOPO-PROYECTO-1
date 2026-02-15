@@ -9,7 +9,7 @@ import java.awt.*;
 
 
  
-public class Trapezoid{
+public class Rectangle{
 
     public static int EDGES = 4;
     
@@ -23,13 +23,14 @@ public class Trapezoid{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Trapezoid(){
-        height = 30;
-        width = 40;
+    public Rectangle(int size){
+        height = size;
+        width = size;
         xPosition = 70;
         yPosition = 15;
         color = "magenta";
-        isVisible = false;
+        this.isVisible = true;
+        draw();
     }
     
 
@@ -162,31 +163,16 @@ public class Trapezoid{
     /*
      * Draw the rectangle with current specifications on screen.
      */
-
     private void draw() {
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
-            int topWidth = width;
-            int bottomWidth = width / 2;
-            int x1 = xPosition;
-            int x2 = xPosition + topWidth;
-            int x3 = xPosition + (topWidth + bottomWidth) / 2;
-            int x4 = xPosition + (topWidth - bottomWidth) / 2;
-            int y1 = yPosition;
-            int y2 = yPosition;
-            int y3 = yPosition + height;
-            int y4 = yPosition + height;
-            
-            int[] xPoints = {x1, x2, x3, x4};
-            int[] yPoints = {y1, y2, y3, y4};
-    
-            Polygon cupBody = new Polygon(xPoints, yPoints, 4);
-            canvas.draw(this, color, cupBody);
+            canvas.draw(this, color,
+                new java.awt.Rectangle(xPosition, yPosition, 
+                                       width, height));
+            canvas.draw(this, "white", new java.awt.Rectangle(xPosition, yPosition + 10, width/2, height/2));
             canvas.wait(10);
         }
     }
-
-
     /*
      * Erase the rectangle on screen.
      */
