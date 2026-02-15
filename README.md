@@ -41,9 +41,6 @@ Quieres determinar **en qué orden colocar las tazas** para que la **altura fina
 **Nota:**
 Debes usar **todas las n tazas**.
 
-
-Aquí tienes la traducción organizada en **Markdown**:
-
 ---
 
 ## Entrada
