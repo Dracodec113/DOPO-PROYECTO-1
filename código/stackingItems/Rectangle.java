@@ -23,14 +23,13 @@ public class Rectangle{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Rectangle(int size){
+    public Rectangle(int size, String color){
         height = size;
         width = size;
-        xPosition = 70;
-        yPosition = 15;
-        color = "magenta";
-        this.isVisible = true;
-        draw();
+        xPosition = 40;
+        yPosition = 40;
+        this.color =color;
+        isVisible = false;
     }
     
 
@@ -166,10 +165,24 @@ public class Rectangle{
     private void draw() {
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
-            canvas.draw(this, color,
-                new java.awt.Rectangle(xPosition, yPosition, 
-                                       width, height));
-            canvas.draw(this, "white", new java.awt.Rectangle(xPosition, yPosition + 10, width/2, height/2));
+    
+            java.awt.Rectangle base = new java.awt.Rectangle(
+                xPosition,
+                yPosition,
+                width,
+                height
+            );
+    
+            java.awt.Rectangle top = new java.awt.Rectangle(
+                xPosition + width / 4,
+                yPosition - height/8,
+                width / 2,
+                height
+            );
+    
+            canvas.draw(this, color, base);
+            canvas.draw(this.toString() + "top", "white", top);
+    
             canvas.wait(10);
         }
     }
