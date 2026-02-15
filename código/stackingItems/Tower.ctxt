@@ -18,4 +18,6 @@ comment7.params=
 comment7.target=boolean\ ok()
 comment8.params=
 comment8.target=void\ makeVisible()
-numComments=9
+comment9.params=
+comment9.target=void\ makeInvisible()
+numComments=10

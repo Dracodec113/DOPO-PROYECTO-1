@@ -114,7 +114,4 @@ public class Tower
     
         isVisible = false;
     }
-    
-
-
 }
