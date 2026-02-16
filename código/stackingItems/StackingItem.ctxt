@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=StackingItem
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ StackingItem\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=id\ color\ height
+comment1.target=StackingItem(int,\ java.lang.String,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ StackingItem\r\n
+comment2.params=
+comment2.target=int\ getHeight()
+comment3.params=
+comment3.target=int\ getId()
+comment4.params=
+comment4.target=java.lang.String\ getColor()
+comment5.params=
+comment5.target=void\ makeVisible()
+comment6.params=
+comment6.target=void\ makeInvisible()
+comment7.params=distance
+comment7.target=void\ moveVertical(int)
+comment8.params=distance
+comment8.target=void\ moveHorizontal(int)
+numComments=9
