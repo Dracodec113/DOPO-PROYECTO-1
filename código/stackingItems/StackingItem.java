@@ -7,7 +7,6 @@
  */
 public abstract class StackingItem
 {
-    // instance variables - replace the example below with your own
     private int height;
     private int id;
     private String color;
@@ -33,9 +32,14 @@ public abstract class StackingItem
     {
         return color;
     }
+    public void drawStackingItem(){
+        
+    }
     
-    public abstract void makeVisible();
-    public abstract void makeInvisible();
-    public abstract void moveVertical(int distance);
-    public abstract void moveHorizontal(int distance);
+        
+        
+    //public abstract void makeVisible();
+    //public abstract void makeInvisible();
+    //public abstract void moveVertical(int distance);
+    //public abstract void moveHorizontal(int distance);
 }

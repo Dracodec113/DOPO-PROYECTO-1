@@ -23,13 +23,13 @@ public class Rectangle{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Rectangle(int size, String color){
-        height = size;
-        width = size;
-        xPosition = 40;
-        yPosition = 40;
-        this.color =color;
-        isVisible = false;
+    public Rectangle(int height,int width, String color, int xPosition, int yPosition){
+        this.height = height;
+        this.width = width;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.color = color;
+        isVisible = true;
     }
     
 
@@ -162,7 +162,7 @@ public class Rectangle{
     /*
      * Draw the rectangle with current specifications on screen.
      */
-    private void draw() {
+    public void draw() {
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
     
@@ -184,6 +184,19 @@ public class Rectangle{
             canvas.draw(this.toString() + "top", "white", top);
     
             canvas.wait(10);
+        }
+    }
+    public void drawLid() {
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+    
+            java.awt.Rectangle base = new java.awt.Rectangle(
+                xPosition,
+                yPosition,
+                width,
+                height
+            );
+            canvas.draw(this, color, base);
         }
     }
     /*

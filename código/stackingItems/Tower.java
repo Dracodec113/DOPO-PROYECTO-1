@@ -19,13 +19,15 @@ public class Tower
     public Tower(int height, int width){
         this.height = height;
         this.width = width;
+        this.items = new HashMap<>();
+        this.order = new ArrayList<>();
     }
     
     //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
     public void pushCup(int id){
         if(!checkCup(id)){
-            Cup cup = new Cup();
+            Cup cup = new Cup(1, "yellow", 1, 125, 125);
             items.put(id, cup);
             order.add(id);
         }
@@ -33,7 +35,7 @@ public class Tower
     
     public void pushLid(int id){
          if(!checkLid(id)){
-            Lid lid = new Lid();
+            Lid lid = new Lid(1, "yellow", 125, 140);
             items.put(-id, lid);
             order.add(-id);
         }
@@ -76,7 +78,7 @@ public class Tower
         }
     }
     
-        public void reverseTower(){
+    public void reverseTower(){
         ArrayList<Integer> positions = new ArrayList<>();
         
         for(Integer id:items.keySet()){
