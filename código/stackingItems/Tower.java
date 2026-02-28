@@ -1,117 +1,60 @@
+import java.util.HashMap;
+import java.util.*;
 
 /**
  * La clase torre es la clase principal del problema StackingCups
  * En esta se maneja la lógica general y las operaciones posibles del juego.
+ * id: Funciona de tamaño también.
  * 
  * @author Jeronimo Moreno
  * @version (0.1) Simulation test
  */
 public class Tower
 {
- 
+    private int height;
     private int width;
-    private int maxHeight;
-    private StackingItem[] items;
-    private boolean ok;
-    private boolean isVisible;
-    private int size;
-    /**
-     * Constructor for objects of class Tower
-     */
-    public Tower(int width, int maxHeight) {
+    private HashMap<Integer, Cup> cups;
+    private HashMap<Integer, Lid> lids;
+
+    public Tower(int height, int width){
+        this.height = height;
         this.width = width;
-        this.maxHeight = maxHeight;
-        this.items = new StackingItem[100];
-        this.ok = true;
-        this.isVisible = false;
     }
     
-    private StackingItem getItem(int index) 
-    {
-        return items[index];
-    }
+    //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
-    public int height() 
-    {
-        int total = 0;
-    
-        for(int i = 0; i < size; i++) {
-            total += items[i].getHeight();
+    public void pushCup(int id){
+        if(!checkCup(id)){
+            Cup cup = new Cup();
+            cups.put(id, cup);
         }
-    
-        return total;
     }
-    public void pushCup(int id, String color) {
     
-        if(checkItem(id, Cup.class) != null) {
-            ok = false;
-            return;
+    public void pushLid(int id){
+         if(!checkLid(id)){
+            Lid lid = new Lid();
+            lids.put(id, lid);
         }
-    
-        items[size] = new Cup(id, color);
-        size++;
-        ok = true;
     }
-
-    public void pushLid(int id) {
+    
+    public void removeCup(int id){
+        if(checkCup(id)){
+            cups.remove(id);
+        }
+    }
+    public void removeLid(int id){
+        if(checkLid(id)){
+            lids.remove(id);
+        }
+    }
+    public void orderTower(){
         
-        Cup cup = (Cup) checkItem(id, Cup.class);
-    
-        if(cup == null) {
-            ok = false;
-            return;
-        }
-        if(cup.hasLid()) {
-            ok = false;
-            return;
-        }
-        if(checkItem(id, Lid.class) != null) {
-            ok = false;
-            return;
-        }
-        items[size] = new Lid(id, cup.getColor());
-        size++;
-        cup.addLid();
-        ok = true;
     }
-
-
-    
-    private StackingItem checkItem(int id, Class<?> type) 
-    {
-    
-        for(int i = 0; i < size; i++) {
-            if(type.isInstance(items[i]) && items[i].getId() == id) {
-                return items[i];
-            }
-        }
-        return null;
-    }
-
-    
-    public boolean ok() 
-    {
-        return ok;
+    private boolean checkCup(int id){
+        return cups.containsKey(id);
     }
     
-    public void makeVisible() 
-    {
-    
-        for(int i = 0; i < size; i++) {
-    
-            items[i].makeVisible();
-        }
-    
-        isVisible = true;
-    }
-    public void makeInvisible() 
-    {
-    
-        for(int i = 0; i < size; i++) {
-    
-            items[i].makeInvisible();
-        }
-    
-        isVisible = false;
+    private boolean checkLid(int id){
+        return cups.containsKey(id);
     }
 }
