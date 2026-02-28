@@ -54,7 +54,7 @@ public class Tower
     }
 
     public void pushLid(int id) {
-    
+        
         Cup cup = (Cup) checkItem(id, Cup.class);
     
         if(cup == null) {

@@ -33,6 +33,7 @@ public abstract class StackingItem
     {
         return color;
     }
+    
     public abstract void makeVisible();
     public abstract void makeInvisible();
     public abstract void moveVertical(int distance);
