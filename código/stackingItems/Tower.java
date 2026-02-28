@@ -54,18 +54,18 @@ public class Tower
     }
     
     public void orderTower(){
-        ArrayList<Integer> posicions = new ArrayList<>();
+        ArrayList<Integer> positions = new ArrayList<>();
         
         for(Integer id:items.keySet()){
             
             int cup=Math.abs(id);//Agrega primero tasas si existe.
-            if (!posicions.contains(cup)){
-                    posicions.add(cup);
+            if (!positions.contains(cup)){
+                    positions.add(cup);
             }
-            Collections.sort(posicions, Collections.reverseOrder());
+            Collections.sort(positions, Collections.reverseOrder());
         }
         order.clear();
-        for(Integer pos:posicions) {
+        for(Integer pos:positions) {
             if (items.containsKey(pos)) {
                 order.add(pos);
             }
@@ -77,18 +77,18 @@ public class Tower
     }
     
         public void reverseTower(){
-        ArrayList<Integer> posicions = new ArrayList<>();
+        ArrayList<Integer> positions = new ArrayList<>();
         
         for(Integer id:items.keySet()){
             
-            int cup=Math.abs(id);//Agrega primero tasas si existe.
-            if (!posicions.contains(cup)){
-                    posicions.add(cup);
+            int cup = Math.abs(id);//Agrega primero tasas si existe.
+            if (!positions.contains(cup)){
+                    positions.add(cup);
             }
-            Collections.sort(posicions);
+            Collections.sort(positions);
         }
         order.clear();
-        for(Integer pos:posicions) {
+        for(Integer pos:positions) {
             if (items.containsKey(pos)) {
                 order.add(pos);
             }
