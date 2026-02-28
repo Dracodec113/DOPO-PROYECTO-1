@@ -26,6 +26,7 @@ public class Tower
         this.isVisible = false;
     }
     
+<<<<<<< Updated upstream
     private StackingItem getItem(int index) 
     {
         return items[index];
@@ -34,6 +35,28 @@ public class Tower
     public int height() 
     {
         int total = 0;
+=======
+    //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
+    
+    public void pushCup(int id){
+        if(!checkCup(id)){
+            Cup cup = new Cup();
+            items.put(id, cup);
+            if(containsKey(-id)){
+            order.add(id);
+            
+        }
+    }
+    
+    public void pushLid(int id){
+         if(!checkLid(id)){
+            Lid lid = new Lid();
+            items.put(-id, lid);
+            
+            order.add(-id);
+        }
+    }
+>>>>>>> Stashed changes
     
         for(int i = 0; i < size; i++) {
             total += items[i].getHeight();
@@ -43,6 +66,7 @@ public class Tower
     }
     public void pushCup(int id, String color) {
     
+<<<<<<< Updated upstream
         if(checkItem(id, Cup.class) != null) {
             ok = false;
             return;
@@ -52,9 +76,28 @@ public class Tower
         size++;
         ok = true;
     }
+=======
+    public void orderTower(){
+        ArrayList<Integer> positions = new ArrayList<>();
+        
+        for(Integer id:items.keySet()){
+            
+            int cup=Math.abs(id);//Agrega primero tasas si existe.
+            if (!positions.contains(cup)){
+                    positions.add(cup);
+            }
+            Collections.sort(positions, Collections.reverseOrder());
+        }
+        order.clear();
+        for(Integer pos:positions){
+            if (items.containsKey(pos)) {
+                order.add(pos);
+            }
+>>>>>>> Stashed changes
 
     public void pushLid(int id) {
     
+<<<<<<< Updated upstream
         Cup cup = (Cup) checkItem(id, Cup.class);
     
         if(cup == null) {
@@ -74,6 +117,24 @@ public class Tower
         cup.addLid();
         ok = true;
     }
+=======
+        public void reverseTower(){
+        ArrayList<Integer> positions = new ArrayList<>();
+        
+        for(Integer id:items.keySet()){
+            
+            int cup=Math.abs(id);//Agrega primero tasas si existe.
+            if (!positions.contains(cup)){
+                    positions.add(cup);
+            }
+            Collections.sort(positions);
+        }
+        order.clear();
+        for(Integer pos:positions) {
+            if (items.containsKey(pos)) {
+                order.add(pos);
+            }
+>>>>>>> Stashed changes
 
 
     
