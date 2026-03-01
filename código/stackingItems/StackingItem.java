@@ -37,7 +37,7 @@ public abstract class StackingItem
     }
     
         
-        
+    public abstract void redraw(int x, int y);   
     //public abstract void makeVisible();
     //public abstract void makeInvisible();
     //public abstract void moveVertical(int distance);

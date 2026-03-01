@@ -208,5 +208,11 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
+    public void drawAt(int x, int y) {
+        erase();
+        this.xPosition = x;
+        this.yPosition = y;
+        draw();
+    }
 }
 

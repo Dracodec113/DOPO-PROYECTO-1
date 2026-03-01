@@ -16,5 +16,9 @@ public class Cup extends StackingItem {
         this.cupShape = new Rectangle(DRAWCONSTANT*height, DRAWCONSTANT*height, color, xPosition, yPosition);
         cupShape.draw();
     }
+    
+    public void redraw(int x, int y) {
+        cupShape.drawAt(x, y);
+    }
 }
 

@@ -14,4 +14,7 @@ public class Lid extends StackingItem {
         this.lidShape = new Rectangle(DRAWCONSTANT, DRAWCONSTANT*id, color, xPosition, yPosition);
         lidShape.drawLid();
     }
+    public void redraw(int x, int y) {
+        lidShape.drawAt(x, y);
+    }
 }

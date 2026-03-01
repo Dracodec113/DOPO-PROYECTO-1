@@ -97,6 +97,7 @@ public class Tower
                 order.add(-pos);
             }
         }
+        drawTower();
     }
     
     public void reverseTower(){
@@ -128,5 +129,15 @@ public class Tower
     
     private boolean checkLid(int id){
         return items.containsKey(-id);
+    }
+    public void drawTower() {
+        int baseY = 800; // punto base donde empieza la torre en pantalla
+        int currentY = baseY;
+        
+        for (Integer id : order) {
+            StackingItem item = items.get(id);
+            item.redraw(125, currentY);
+            currentY -= item.getHeight(); // sube según la altura del item
+        }
     }
 }
