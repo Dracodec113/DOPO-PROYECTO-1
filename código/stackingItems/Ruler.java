@@ -7,10 +7,10 @@ public class Ruler {
     private int height;
     private int unitSize; // píxeles por unidad
 
-    public Ruler() {
-        this.xPosition = 20;
-        this.yPosition = 280;
-        this.height = 14;
+    public Ruler(int heigth) {
+        this.xPosition = 30;
+        this.yPosition = 600;
+        this.height = heigth;
         this.unitSize = 20;
         draw();
     }

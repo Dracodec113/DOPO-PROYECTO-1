@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.*;
-
 /**
  * La clase torre es la clase principal del problema StackingCups
  * En esta se maneja la lógica general y las operaciones posibles del juego.
@@ -15,31 +14,53 @@ public class Tower
     private int width;
     private HashMap<Integer, StackingItem> items;
     private ArrayList<Integer> order;
-    
+    private HashMap<Integer,String> colors;
+    private Ruler ruler;
     public Tower(int height, int width){
         this.height = height;
         this.width = width;
         this.items = new HashMap<>();
         this.order = new ArrayList<>();
+        this.colors= new HashMap<>(){{
+            put(0,"black");
+            put(1,"red");
+            put(2,"blue");
+            put(3,"yellow");
+            put(4,"magenta");
+            put(5,"green");
+        }};
+        ruler=new Ruler(this.height);
     }
     
     //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
+    public void  makeVisible(){
+        ruler.draw();
+
+    }
+    
     public void pushCup(int id){
+        Random rand=new Random();
+        int randomColor=rand.nextInt(5);
         if(!checkCup(id)){
-            Cup cup = new Cup(1, "yellow", 1, 125, 125);
+            Cup cup = new Cup(id, colors.get(randomColor), id, 125, 125);
             items.put(id, cup);
             order.add(id);
+            makeVisible();
         }
     }
     
     public void pushLid(int id){
+        Random rand=new Random();
+        int randomColor=rand.nextInt(5);
+        
          if(!checkLid(id)){
-            Lid lid = new Lid(1, "yellow", 125, 140);
+            Lid lid = new Lid(20, colors.get(randomColor), 125, 140);
             items.put(-id, lid);
             order.add(-id);
         }
     }
+    
     
     public void removeCup(int id){
         if(checkCup(id)){

@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Ruler
-comment1.params=
-comment1.target=Ruler()
+comment1.params=heigth
+comment1.target=Ruler(int)
 comment2.params=
 comment2.target=void\ draw()
 numComments=3
