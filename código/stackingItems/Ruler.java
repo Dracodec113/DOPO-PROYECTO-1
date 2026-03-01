@@ -28,7 +28,7 @@ public class Ruler {
         for (int i = 0; i <= height; i++) {
             int y = yPosition - i * unitSize;
             g.drawLine(xPosition - 5, y, xPosition + 5, y); // marca horizontal
-            g.drawString(String.valueOf(i), xPosition - 20, y + 5); // número
+            g.drawString(String.valueOf(i + "cm"), xPosition - 20, y + 5); // número
         }
     }
 }

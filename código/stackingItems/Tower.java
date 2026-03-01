@@ -215,8 +215,8 @@ public class Tower
             int floorThickness = 20;
     
             if (id > 0) {
-                // Buscar contenedor válido: más ancho Y sin lid
-                // NO sacamos copas más pequeñas — solo buscamos el primer válido
+                // Buscar contenedor válido: más ancho y sin lid
+                // NO sacamos copas más pequeñas solo buscamos el primer válido
                 int[] validContainer = null;
                 int[] topItem = null; // el item más reciente dentro del contenedor válido
     
@@ -232,7 +232,7 @@ public class Tower
                 }
     
                 if (validContainer != null) {
-                    // Anidar: la base del item toca la cima del topItem dentro del contenedor
+                    // la base del item toca la cima del topItem dentro del contenedor
                     // o el piso del contenedor si no hay nada dentro
                     int offset = (validContainer[0] - itemWidth) / 2;
                     currentX = validContainer[1] + offset;
@@ -264,6 +264,7 @@ public class Tower
         }
         makeVisible();
     }
+    
     public void exit()
     {
         int op = JOptionPane.showConfirmDialog(null,"¿Deseas salir?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION); // Selección generada por IA.
