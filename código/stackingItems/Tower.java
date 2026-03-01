@@ -37,7 +37,7 @@ public class Tower
         this(cups * 20, cups * 20);
         int i;
         for(i = 1; i <= cups; i++){
-            pushCup((2*i) - 1);
+            pushCup(i);
         }
     }
     //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
@@ -58,7 +58,7 @@ public class Tower
         }
         
         if(!checkCup(id)){
-            Cup cup = new Cup(id, colors.get(randomColor), id, 125, 125, randomColor);
+            Cup cup = new Cup(id, colors.get(randomColor), (2*id) - 1, 125, 125, randomColor);
             items.put(id, cup);
             order.add(id);
             makeVisible();
@@ -235,8 +235,8 @@ public class Tower
             int floorThickness = 20;
     
             if (id > 0) {
-                // Buscar contenedor válido: más ancho Y sin lid
-                // NO sacamos copas más pequeñas — solo buscamos el primer válido
+                // Buscar contenedor válido: más ancho y sin lid
+                // NO sacamos copas más pequeñas solo buscamos el primer válido
                 int[] validContainer = null;
                 int[] topItem = null; // el item más reciente dentro del contenedor válido
     
@@ -252,7 +252,7 @@ public class Tower
                 }
     
                 if (validContainer != null) {
-                    // Anidar: la base del item toca la cima del topItem dentro del contenedor
+                    // la base del item toca la cima del topItem dentro del contenedor
                     // o el piso del contenedor si no hay nada dentro
                     int offset = (validContainer[0] - itemWidth) / 2;
                     currentX = validContainer[1] + offset;
@@ -284,6 +284,7 @@ public class Tower
         }
         makeVisible();
     }
+    
     public void exit()
     {
         int op = JOptionPane.showConfirmDialog(null,"¿Deseas salir?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION); // Selección generada por IA.
