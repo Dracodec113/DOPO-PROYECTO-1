@@ -9,8 +9,8 @@ public class Lid extends StackingItem {
     private static final int DRAWCONSTANT = 20;
     
     public Rectangle lidShape;
-    public Lid(int id, String color, int xPosition, int yPosition){
-        super(id, color, DRAWCONSTANT);
+    public Lid(int id, String color, int xPosition, int yPosition, int randomColor){
+        super(id, color, DRAWCONSTANT, randomColor);
         this.lidShape = new Rectangle(DRAWCONSTANT, DRAWCONSTANT*id, color, xPosition, yPosition);
         lidShape.drawLid();
     }

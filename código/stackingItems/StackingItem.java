@@ -10,14 +10,16 @@ public abstract class StackingItem
     private int height;
     private int id;
     private String color;
+    public int colorNum;
     /**
      * Constructor for objects of class StackingItem
      */
-    public StackingItem(int id, String color, int height)
+    public StackingItem(int id, String color, int height, int colorNum)
     {
         this.height = height;
         this.color = color;
         this.id = id;
+        this.colorNum = colorNum;
     }
 
     public int getHeight()

@@ -167,21 +167,19 @@ public class Rectangle{
             Canvas canvas = Canvas.getCanvas();
     
             java.awt.Rectangle base = new java.awt.Rectangle(
-                xPosition,
-                yPosition,
-                width,
-                height
+                xPosition, yPosition, width, height
             );
     
+            int floorThickness = 20;
             java.awt.Rectangle top = new java.awt.Rectangle(
                 xPosition + width / 4,
-                yPosition - height/8,
+                yPosition,
                 width / 2,
-                height
+                height - floorThickness
             );
     
             canvas.draw(this, color, base);
-            canvas.draw(this.toString() + "top", "white", top);
+            canvas.draw(this.getClass().getName() + System.identityHashCode(this) + "top", "white", top);
     
             canvas.wait(10);
         }

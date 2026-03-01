@@ -40,10 +40,17 @@ public class Tower
     }
     
     public void pushCup(int id){
-        Random rand=new Random();
-        int randomColor=rand.nextInt(5);
+        int randomColor;
+        if(!checkLid(-id)){
+            Random rand = new Random();
+            randomColor=rand.nextInt(5);
+        }
+        else{
+            randomColor = items.get(-id).colorNum;
+        }
+        
         if(!checkCup(id)){
-            Cup cup = new Cup(id, colors.get(randomColor), id, 125, 125);
+            Cup cup = new Cup(id, colors.get(randomColor), id, 125, 125, randomColor);
             items.put(id, cup);
             order.add(id);
             makeVisible();
@@ -52,10 +59,16 @@ public class Tower
     }
     
     public void pushLid(int id){
-        Random rand=new Random();
-        int randomColor=rand.nextInt(5);
-         if(!checkLid(id)){
-            Lid lid = new Lid(id, colors.get(randomColor), 125, 140);
+        int randomColor;
+        if(!checkCup(id)){
+            Random rand = new Random();
+            randomColor=rand.nextInt(5);
+        }
+        else{
+            randomColor = items.get(id).colorNum;
+        }
+        if(!checkLid(id)){
+            Lid lid = new Lid(id, colors.get(randomColor), 125, 140, randomColor);
             items.put(-id, lid);
             order.add(-id);
             makeVisible();
@@ -136,18 +149,65 @@ public class Tower
         return items.containsKey(-id);
     }
     
-    public void drawTower() {
+    private void drawTower() {
         int baseY = 600;
-        int currentY = baseY;
-        
+        int currentX = 125;
+    
+        // [width, x, y, hasLid, height]
+        java.util.Deque<int[]> stack = new java.util.ArrayDeque<>();
+    
         for (Integer id : order) {
             StackingItem item = items.get(id);
-            if (id < 0) {
-                currentY -= item.getHeight();
-                item.redraw(125, currentY);
-            } else {
-                currentY -= item.getHeight();
-                item.redraw(125, currentY);
+            int itemWidth = Math.abs(id) * 20;
+            int itemHeight = item.getHeight();
+            int floorThickness = 20;
+    
+            if (id > 0) {
+                // Buscar contenedor válido: más ancho Y sin lid
+                // NO sacamos copas más pequeñas — solo buscamos el primer válido
+                int[] validContainer = null;
+                int[] topItem = null; // el item más reciente dentro del contenedor válido
+    
+                for (int[] entry : stack) { // stack itera de tope a fondo
+                    if (entry[0] > itemWidth && entry[3] == 0) {
+                        validContainer = entry;
+                        break;
+                    } else if (entry[0] > itemWidth && entry[3] == 1) {
+                        // tiene lid, no puede anidar
+                        break;
+                    }
+                    if (topItem == null) topItem = entry;
+                }
+    
+                if (validContainer != null) {
+                    // Anidar: la base del item toca la cima del topItem dentro del contenedor
+                    // o el piso del contenedor si no hay nada dentro
+                    int offset = (validContainer[0] - itemWidth) / 2;
+                    currentX = validContainer[1] + offset;
+    
+                    if (topItem != null && topItem[0] < validContainer[0]) {
+                        // hay algo dentro, apoyarse encima de ese algo
+                        currentX = topItem[1] + (topItem[0] - itemWidth) / 2;
+                        baseY = topItem[2]; // cima del item de abajo
+                    } else {
+                        baseY = validContainer[2] + validContainer[4] - floorThickness;
+                    }
+    
+                } else {
+                    // Va encima de la torre
+                    currentX = 125;
+                }
+    
+                int currentY = baseY - itemHeight;
+                baseY = currentY;
+                stack.push(new int[]{itemWidth, currentX, currentY, 0, itemHeight});
+                item.redraw(currentX, currentY);
+    
+            } else { // lid
+                if (!stack.isEmpty()) stack.peek()[3] = 1;
+                int currentY = baseY - itemHeight;
+                baseY = currentY;
+                item.redraw(currentX, currentY);
             }
         }
         makeVisible();
