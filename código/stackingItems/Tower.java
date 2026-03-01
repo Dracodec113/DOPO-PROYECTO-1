@@ -32,7 +32,7 @@ public class Tower
         }};
         ruler=new Ruler(this.height);
     }
-    
+    //La sobrecarga del método tower.
     public Tower(int cups){
         this(cups * 20, cups * 20);
         int i;
