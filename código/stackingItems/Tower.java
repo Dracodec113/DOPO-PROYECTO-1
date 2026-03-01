@@ -182,6 +182,26 @@ public class Tower
         makeVisible();
     }
     
+    public void swap(String[] item1, String[] item2){
+        int idSwap1, idSwap2;
+        
+        if(item1[0].equals("cup")){ idSwap1 =Integer.parseInt(item1[1]); }
+        else{idSwap1=-Integer.parseInt(item1[1]); }
+        
+        if(item2[0].equals("cup")){ idSwap2 =Integer.parseInt(item2[1]); }
+        else{idSwap2 =-Integer.parseInt(item2[1]); }
+        
+        int posSwap1 = order.indexOf(idSwap1);
+        int posSwap2 = order.indexOf(idSwap2);
+        
+        int aux = order.get(posSwap1);
+        order.set(posSwap1,idSwap2); 
+        order.set(posSwap2,aux); 
+        
+        drawTower();
+        makeVisible();
+    }
+    
     public void liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
         for(int i=0;i<order.size()-1;i++){
