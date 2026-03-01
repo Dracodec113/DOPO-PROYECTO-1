@@ -201,8 +201,26 @@ public class Tower
         drawTower();
         makeVisible();
     }
-    //secret
 
+    public void swapToReduce(){
+        ArrayList<Integer> cas=new ArrayList<>(order);
+        int cont = 0;
+    
+        for (int i=0;i<order.size();i++){
+            for (int j=0;j<cas.size()-1-i;j++) {
+                if (Math.abs(cas.get(j))<Math.abs(cas.get(j+1))) {
+                    cont++;
+                    System.out.println("Cambia a el id:"+ cas.get(j)+" por " + cas.get(j+1));
+                    
+                    int aux = cas.get(j);
+                    cas.set(j, cas.get(j+1));
+                    cas.set(j+1, aux);
+                }
+            }
+        }
+        System.out.println("No se puede bajar más la altura de la torre.");
+    }
+    
     
     public void liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
