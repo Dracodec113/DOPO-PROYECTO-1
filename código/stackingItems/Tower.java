@@ -74,8 +74,8 @@ public class Tower
     
     public void removeLid(int id){
         if(checkLid(id)){
-            items.get(id).eraseShape();
-            items.remove(id);
+            items.get(-id).eraseShape();
+            items.remove(-id);
             order.remove(Integer.valueOf(-id));
         }
         drawTower();
