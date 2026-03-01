@@ -20,20 +20,10 @@ dependency6.type=UsesDependency
 dependency7.from=Tower
 dependency7.to=Cup
 dependency7.type=UsesDependency
-<<<<<<< Updated upstream
-dependency8.from=Tower
-dependency8.to=Lid
-dependency8.type=UsesDependency
-editor.fx.0.height=686
-editor.fx.0.width=1294
-editor.fx.0.x=-7
-editor.fx.0.y=-7
-=======
-editor.fx.0.height=0
-editor.fx.0.width=0
-editor.fx.0.x=0
-editor.fx.0.y=0
->>>>>>> Stashed changes
+editor.fx.0.height=737
+editor.fx.0.width=814
+editor.fx.0.x=168
+editor.fx.0.y=60
 objectbench.height=152
 objectbench.width=1256
 package.divider.horizontal=0.6
@@ -42,15 +32,9 @@ package.editor.height=420
 package.editor.width=1127
 package.editor.x=0
 package.editor.y=0
-<<<<<<< Updated upstream
-package.frame.height=678
-package.frame.width=652
-package.numDependencies=8
-=======
 package.frame.height=686
 package.frame.width=1294
 package.numDependencies=7
->>>>>>> Stashed changes
 package.numTargets=7
 package.showExtends=true
 package.showUses=true
