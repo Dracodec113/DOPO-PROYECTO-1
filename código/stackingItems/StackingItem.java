@@ -7,18 +7,19 @@
  */
 public abstract class StackingItem
 {
-    // instance variables - replace the example below with your own
-    private int height;
+    public int height;
     private int id;
     private String color;
+    public int colorNum;
     /**
      * Constructor for objects of class StackingItem
      */
-    public StackingItem(int id, String color, int height)
+    public StackingItem(int id, String color, int height, int colorNum)
     {
         this.height = height;
         this.color = color;
         this.id = id;
+        this.colorNum = colorNum;
     }
 
     public int getHeight()
@@ -33,9 +34,14 @@ public abstract class StackingItem
     {
         return color;
     }
+    public void drawStackingItem(){
+        
+    }
     
-    public abstract void makeVisible();
-    public abstract void makeInvisible();
-    public abstract void moveVertical(int distance);
-    public abstract void moveHorizontal(int distance);
+    public abstract void eraseShape();
+    public abstract void redraw(int x, int y);   
+    //public abstract void makeVisible();
+    //public abstract void makeInvisible();
+    //public abstract void moveVertical(int distance);
+    //public abstract void moveHorizontal(int distance);
 }

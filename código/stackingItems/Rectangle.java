@@ -23,13 +23,13 @@ public class Rectangle{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Rectangle(int size, String color){
-        height = size;
-        width = size;
-        xPosition = 40;
-        yPosition = 40;
-        this.color =color;
-        isVisible = false;
+    public Rectangle(int height,int width, String color, int xPosition, int yPosition){
+        this.height = height;
+        this.width = width;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.color = color;
+        isVisible = true;
     }
     
 
@@ -162,7 +162,29 @@ public class Rectangle{
     /*
      * Draw the rectangle with current specifications on screen.
      */
-    private void draw() {
+    public void draw() {
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+    
+            java.awt.Rectangle base = new java.awt.Rectangle(
+                xPosition, yPosition, width, height
+            );
+    
+            int floorThickness = 20;
+            java.awt.Rectangle top = new java.awt.Rectangle(
+                xPosition + width / 4,
+                yPosition,
+                width / 2,
+                height - floorThickness
+            );
+    
+            canvas.draw(this, color, base);
+            canvas.draw(this.getClass().getName() + System.identityHashCode(this) + "top", "white", top);
+    
+            canvas.wait(10);
+        }
+    }
+    public void drawLid() {
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
     
@@ -172,28 +194,30 @@ public class Rectangle{
                 width,
                 height
             );
-    
-            java.awt.Rectangle top = new java.awt.Rectangle(
-                xPosition + width / 4,
-                yPosition - height/8,
-                width / 2,
-                height
-            );
-    
             canvas.draw(this, color, base);
-            canvas.draw(this.toString() + "top", "white", top);
-    
-            canvas.wait(10);
         }
     }
+
     /*
      * Erase the rectangle on screen.
      */
-    private void erase(){
+    public void erase(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
         }
+    }
+    public void drawAt(int x, int y) {
+        erase();
+        this.xPosition = x;
+        this.yPosition = y;
+        draw();
+    }
+    public void drawLidAt(int x, int y) {
+        erase();
+        this.xPosition = x;
+        this.yPosition = y;
+        drawLid();
     }
 }
 
