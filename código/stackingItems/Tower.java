@@ -13,6 +13,8 @@ public class Tower
 {
     private int height;
     private int width;
+    private int lastColor;
+    private int currentHeight;
     private HashMap<Integer, StackingItem> items;
     private ArrayList<Integer> order;
     private HashMap<Integer,String> colors;
@@ -32,7 +34,7 @@ public class Tower
         }};
         ruler=new Ruler(this.height);
     }
-    
+    //La sobrecarga del método tower.
     public Tower(int cups){
         this(cups * 20, cups * 20);
         int i;
@@ -40,18 +42,22 @@ public class Tower
             pushCup(i);
         }
     }
-    //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
     public void  makeVisible(){
         ruler.draw();
 
     }
+    public void makeInvisible(){
+        ruler.draw();
+    }
     
     public void pushCup(int id){
         int randomColor;
+        Random rand = new Random();
         if(!checkLid(-id)){
-            Random rand = new Random();
-            randomColor=rand.nextInt(5);
+            do{
+                randomColor=rand.nextInt(5);
+            }while(randomColor == lastColor);
         }
         else{
             randomColor = items.get(-id).colorNum;
@@ -63,15 +69,18 @@ public class Tower
             order.add(id);
             makeVisible();
         }
+        lastColor = randomColor;
         drawTower();
         makeVisible();
     }
     
     public void pushLid(int id){
         int randomColor;
+        Random rand = new Random();
         if(!checkCup(id)){
-            Random rand = new Random();
+            do{
             randomColor=rand.nextInt(5);
+            }while(lastColor == randomColor);
         }
         else{
             randomColor = items.get(id).colorNum;
@@ -82,6 +91,7 @@ public class Tower
             order.add(-id);
             makeVisible();
         }
+        lastColor = randomColor;
         drawTower();
         makeVisible();
     }
@@ -154,9 +164,6 @@ public class Tower
         makeVisible();
     }
     
-
-    
-    
     public void reverseTower(){
         ArrayList<Integer> positions = new ArrayList<>();
         
@@ -182,7 +189,47 @@ public class Tower
         makeVisible();
     }
     
-    public void liddedCups(){
+    public void swap(String[] item1, String[] item2){
+        int idSwap1, idSwap2;
+        
+        if(item1[0].equals("cup")){ idSwap1 =Integer.parseInt(item1[1]); }
+        else{idSwap1=-Integer.parseInt(item1[1]); }
+        
+        if(item2[0].equals("cup")){ idSwap2 =Integer.parseInt(item2[1]); }
+        else{idSwap2 =-Integer.parseInt(item2[1]); }
+        
+        int posSwap1 = order.indexOf(idSwap1);
+        int posSwap2 = order.indexOf(idSwap2);
+        
+        int aux = order.get(posSwap1);
+        order.set(posSwap1,idSwap2); 
+        order.set(posSwap2,aux); 
+        
+        drawTower();
+        makeVisible();
+    }
+
+    public void swapToReduce(){
+        ArrayList<Integer> cas=new ArrayList<>(order);
+        int cont = 0;
+    
+        for (int i=0;i<order.size();i++){
+            for (int j=0;j<cas.size()-1-i;j++) {
+                if (Math.abs(cas.get(j))<Math.abs(cas.get(j+1))) {
+                    cont++;
+                    System.out.println("Cambia a el id:"+ cas.get(j)+" por " + cas.get(j+1));
+                    
+                    int aux = cas.get(j);
+                    cas.set(j, cas.get(j+1));
+                    cas.set(j+1, aux);
+                }
+            }
+        }
+        System.out.println("No se puede bajar más la altura de la torre.");
+    }
+    
+    
+    public ArrayList<Integer> liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
         for(int i=0;i<order.size()-1;i++){
             if(order.get(i)==-order.get(i+1)){
@@ -190,7 +237,7 @@ public class Tower
             }
             Collections.sort(positions);
         }
-        System.out.println(positions.toString());
+        return positions;
     }
     
     private boolean checkCup(int id){
@@ -215,8 +262,8 @@ public class Tower
             int floorThickness = 20;
     
             if (id > 0) {
-                // Buscar contenedor válido: más ancho Y sin lid
-                // NO sacamos copas más pequeñas — solo buscamos el primer válido
+                // Buscar contenedor válido: más ancho y sin lid
+                // NO sacamos copas más pequeñas solo buscamos el primer válido
                 int[] validContainer = null;
                 int[] topItem = null; // el item más reciente dentro del contenedor válido
     
@@ -232,7 +279,7 @@ public class Tower
                 }
     
                 if (validContainer != null) {
-                    // Anidar: la base del item toca la cima del topItem dentro del contenedor
+                    // la base del item toca la cima del topItem dentro del contenedor
                     // o el piso del contenedor si no hay nada dentro
                     int offset = (validContainer[0] - itemWidth) / 2;
                     currentX = validContainer[1] + offset;
@@ -262,8 +309,28 @@ public class Tower
                 item.redraw(currentX, currentY);
             }
         }
+        currentHeight = baseY;
         makeVisible();
     }
+    
+    public String[][] stackingItems(){
+        String[][] result = new String[order.size()][2];
+        for(int i = 0; i < order.size(); i++){
+            int id = order.get(i);
+            if(id > 0){
+                result[i][0] = "cup";
+            } else {
+                result[i][0] = "lid";
+            }
+            result[i][1] = String.valueOf(Math.abs(id));
+        }
+        return result;
+    }
+    
+    public boolean ok(){
+        return true;
+    }
+    
     public void exit()
     {
         int op = JOptionPane.showConfirmDialog(null,"¿Deseas salir?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION); // Selección generada por IA.
@@ -275,5 +342,9 @@ public class Tower
             drawTower();
         }
 
+    }
+    
+    public int height(){
+        return currentHeight;
     }
 }
