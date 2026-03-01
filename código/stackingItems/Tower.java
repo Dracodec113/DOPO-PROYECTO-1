@@ -201,8 +201,6 @@ public class Tower
         drawTower();
         makeVisible();
     }
-    //secret
-
     
     public void liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
