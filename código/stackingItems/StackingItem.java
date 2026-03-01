@@ -7,7 +7,7 @@
  */
 public abstract class StackingItem
 {
-    private int height;
+    public int height;
     private int id;
     private String color;
     public int colorNum;

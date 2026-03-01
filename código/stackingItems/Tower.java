@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.*;
+import javax.swing.JOptionPane;
 /**
  * La clase torre es la clase principal del problema StackingCups
  * En esta se maneja la lógica general y las operaciones posibles del juego.
@@ -32,6 +33,13 @@ public class Tower
         ruler=new Ruler(this.height);
     }
     
+    public Tower(int cups){
+        this(cups * 20, cups * 20);
+        int i;
+        for(i = 1; i <= cups; i++){
+            pushCup((2*i) - 1);
+        }
+    }
     //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
     public void  makeVisible(){
@@ -56,6 +64,7 @@ public class Tower
             makeVisible();
         }
         drawTower();
+        makeVisible();
     }
     
     public void pushLid(int id){
@@ -74,6 +83,7 @@ public class Tower
             makeVisible();
         }
         drawTower();
+        makeVisible();
     }
     
     public void removeCup(int id){
@@ -83,6 +93,7 @@ public class Tower
             order.remove(Integer.valueOf(id));
         }
         drawTower();
+        makeVisible();
     }
     
     public void removeLid(int id){
@@ -92,6 +103,7 @@ public class Tower
             order.remove(Integer.valueOf(-id));
         }
         drawTower();
+        makeVisible();
     }
     
     public void orderTower(){
@@ -116,6 +128,7 @@ public class Tower
             }
         }
         drawTower();
+        makeVisible();
     }
     
     public void reverseTower(){
@@ -139,9 +152,11 @@ public class Tower
                 order.add(-pos);
             }
         }
+        drawTower();
+        makeVisible();
     }
     
-    public void lidedCups(){
+    public void liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
         for(int i=0;i<order.size()-1;i++){
             if(order.get(i)==-order.get(i+1)){
@@ -222,5 +237,17 @@ public class Tower
             }
         }
         makeVisible();
+    }
+    public void exit()
+    {
+        int op = JOptionPane.showConfirmDialog(null,"¿Deseas salir?","Confirmación",JOptionPane.YES_NO_CANCEL_OPTION); // Selección generada por IA.
+        if (op == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+        else
+        {
+            drawTower();
+        }
+
     }
 }
