@@ -199,10 +199,11 @@ public class Rectangle{
             canvas.draw(this, color, base);
         }
     }
+
     /*
      * Erase the rectangle on screen.
      */
-    private void erase(){
+    public void erase(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
@@ -213,6 +214,12 @@ public class Rectangle{
         this.xPosition = x;
         this.yPosition = y;
         draw();
+    }
+    public void drawLidAt(int x, int y) {
+        erase();
+        this.xPosition = x;
+        this.yPosition = y;
+        drawLid();
     }
 }
 

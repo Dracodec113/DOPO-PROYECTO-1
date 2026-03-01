@@ -8,7 +8,7 @@
 public class Cup extends StackingItem {
     private static final int DRAWCONSTANT = 20;
     public boolean hasLid;
-    private Rectangle cupShape;
+    public Rectangle cupShape;
     
     public Cup(int id, String color, int height, int xPosition, int yPosition){
         super(id, color, DRAWCONSTANT*height);
@@ -19,6 +19,11 @@ public class Cup extends StackingItem {
     
     public void redraw(int x, int y) {
         cupShape.drawAt(x, y);
+    }
+    
+    @Override
+    public void eraseShape(){
+        cupShape.erase();
     }
 }
 

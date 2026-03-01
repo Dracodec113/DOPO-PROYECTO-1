@@ -48,32 +48,37 @@ public class Tower
             order.add(id);
             makeVisible();
         }
+        drawTower();
     }
     
     public void pushLid(int id){
         Random rand=new Random();
         int randomColor=rand.nextInt(5);
-        
          if(!checkLid(id)){
-            Lid lid = new Lid(20, colors.get(randomColor), 125, 140);
+            Lid lid = new Lid(id, colors.get(randomColor), 125, 140);
             items.put(-id, lid);
             order.add(-id);
+            makeVisible();
         }
+        drawTower();
     }
-    
     
     public void removeCup(int id){
         if(checkCup(id)){
+            items.get(id).eraseShape();
             items.remove(id);
             order.remove(Integer.valueOf(id));
         }
+        drawTower();
     }
     
     public void removeLid(int id){
         if(checkLid(id)){
+            items.get(id).eraseShape();
             items.remove(id);
             order.remove(Integer.valueOf(-id));
         }
+        drawTower();
     }
     
     public void orderTower(){
@@ -81,7 +86,7 @@ public class Tower
         
         for(Integer id:items.keySet()){
             
-            int cup=Math.abs(id);//Agrega primero tasas si existe.
+            int cup=Math.abs(id);
             if (!positions.contains(cup)){
                     positions.add(cup);
             }
@@ -105,7 +110,7 @@ public class Tower
         
         for(Integer id:items.keySet()){
             
-            int cup = Math.abs(id);//Agrega primero tasas si existe.
+            int cup = Math.abs(id);
             if (!positions.contains(cup)){
                     positions.add(cup);
             }
@@ -130,14 +135,21 @@ public class Tower
     private boolean checkLid(int id){
         return items.containsKey(-id);
     }
+    
     public void drawTower() {
-        int baseY = 800; // punto base donde empieza la torre en pantalla
+        int baseY = 600;
         int currentY = baseY;
         
         for (Integer id : order) {
             StackingItem item = items.get(id);
-            item.redraw(125, currentY);
-            currentY -= item.getHeight(); // sube según la altura del item
+            if (id < 0) {
+                currentY -= item.getHeight();
+                item.redraw(125, currentY);
+            } else {
+                currentY -= item.getHeight();
+                item.redraw(125, currentY);
+            }
         }
+        makeVisible();
     }
 }
