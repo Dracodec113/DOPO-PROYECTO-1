@@ -141,6 +141,17 @@ public class Tower
         }
     }
     
+    public void lidedCups(){
+        ArrayList<Integer> positions = new ArrayList<>();
+        for(int i=0;i<order.size()-1;i++){
+            if(order.get(i)==-order.get(i+1)){
+                positions.add(order.get(i));
+            }
+            Collections.sort(positions);
+        }
+        System.out.println(positions.toString());
+    }
+    
     private boolean checkCup(int id){
         return items.containsKey(id);
     }
