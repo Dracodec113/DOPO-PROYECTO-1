@@ -202,6 +202,8 @@ public class Tower
         makeVisible();
     }
     
+
+    
     public void liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
         for(int i=0;i<order.size()-1;i++){
