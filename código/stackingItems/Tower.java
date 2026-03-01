@@ -37,7 +37,7 @@ public class Tower
         this(cups * 20, cups * 20);
         int i;
         for(i = 1; i <= cups; i++){
-            pushCup((2*i) - 1);
+            pushCup(i);
         }
     }
     //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
@@ -58,7 +58,7 @@ public class Tower
         }
         
         if(!checkCup(id)){
-            Cup cup = new Cup(id, colors.get(randomColor), id, 125, 125, randomColor);
+            Cup cup = new Cup(id, colors.get(randomColor), (2*id) - 1, 125, 125, randomColor);
             items.put(id, cup);
             order.add(id);
             makeVisible();

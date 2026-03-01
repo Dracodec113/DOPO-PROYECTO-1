@@ -11,9 +11,9 @@ public class Cup extends StackingItem {
     public Rectangle cupShape;
     
     public Cup(int id, String color, int height, int xPosition, int yPosition, int randomColor){
-        super(id, color, DRAWCONSTANT*height, randomColor);
+        super(id, color, DRAWCONSTANT * height, randomColor);
         this.hasLid = false;
-        this.cupShape = new Rectangle(DRAWCONSTANT*height, DRAWCONSTANT*height, color, xPosition, yPosition);
+        this.cupShape = new Rectangle(DRAWCONSTANT * height, DRAWCONSTANT * id, color, xPosition, yPosition);
         cupShape.draw();
     }
     
