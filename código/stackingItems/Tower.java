@@ -13,10 +13,13 @@ public class Tower
 {
     private int height;
     private int width;
+    private int lastColor;
     private HashMap<Integer, StackingItem> items;
     private ArrayList<Integer> order;
     private HashMap<Integer,String> colors;
     private Ruler ruler;
+    private int currentHeight;
+    
     public Tower(int height, int width){
         this.height = height;
         this.width = width;
@@ -40,24 +43,29 @@ public class Tower
             pushCup(i);
         }
     }
-    //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
     public void  makeVisible(){
         ruler.draw();
 
     }
-    
+    public void makeInvisible(){
+        ruler.draw();
+    }
     public void pushCup(int id){
         int randomColor;
+        Random rand = new Random();
         if(!checkLid(-id)){
-            Random rand = new Random();
+            do{
             randomColor=rand.nextInt(5);
+            }
+            while(randomColor == lastColor);
         }
         else{
             randomColor = items.get(-id).colorNum;
         }
         
         if(!checkCup(id)){
+            lastColor = randomColor;
             Cup cup = new Cup(id, colors.get(randomColor), (2*id) - 1, 125, 125, randomColor);
             items.put(id, cup);
             order.add(id);
@@ -69,14 +77,18 @@ public class Tower
     
     public void pushLid(int id){
         int randomColor;
+        Random rand = new Random();
         if(!checkCup(id)){
-            Random rand = new Random();
-            randomColor=rand.nextInt(5);
+            do {
+                randomColor = rand.nextInt(5);
+            } 
+            while (randomColor == lastColor);
         }
         else{
             randomColor = items.get(id).colorNum;
         }
         if(!checkLid(id)){
+            lastColor = randomColor;
             Lid lid = new Lid(id, colors.get(randomColor), 125, 140, randomColor);
             items.put(-id, lid);
             order.add(-id);
@@ -202,15 +214,40 @@ public class Tower
         makeVisible();
     }
     
-    public void liddedCups(){
-        ArrayList<Integer> positions = new ArrayList<>();
-        for(int i=0;i<order.size()-1;i++){
-            if(order.get(i)==-order.get(i+1)){
-                positions.add(order.get(i));
+    public int[] liddedCups(){
+        ArrayList<Integer> lista = new ArrayList<>();
+        
+        for(int i = 0; i < order.size() - 1; i++){
+            int actual = order.get(i);
+            int siguiente = order.get(i + 1);
+            if(actual > 0 && siguiente == -actual){
+                lista.add(actual);
             }
-            Collections.sort(positions);
         }
-        System.out.println(positions.toString());
+        
+        int[] result = new int[lista.size()];
+        for(int i = 0; i < lista.size(); i++){
+            result[i] = lista.get(i);
+        }
+        
+        return result;
+    }
+    
+    public String[][] stackingItems(){
+        String[][] result = new String[order.size()][2];
+        for(int i = 0; i < order.size(); i++){
+            int id = order.get(i);
+            if(id > 0){
+                result[i][0] = "cup";
+            } else {
+                result[i][0] = "lid";
+            }
+            result[i][1] = String.valueOf(Math.abs(id));
+        }
+        return result;
+    }
+    public boolean ok(){
+        return true;
     }
     
     private boolean checkCup(int id){
@@ -282,6 +319,7 @@ public class Tower
                 item.redraw(currentX, currentY);
             }
         }
+        currentHeight = baseY;
         makeVisible();
     }
     
@@ -296,5 +334,8 @@ public class Tower
             drawTower();
         }
 
+    }
+    public int height(){
+        return currentHeight;
     }
 }
