@@ -13,6 +13,8 @@ public class Tower
 {
     private int height;
     private int width;
+    private int lastColor;
+    private int currentHeight;
     private HashMap<Integer, StackingItem> items;
     private ArrayList<Integer> order;
     private HashMap<Integer,String> colors;
@@ -40,11 +42,13 @@ public class Tower
             pushCup(i);
         }
     }
-    //Consultamos con IA y dice que podemos hacer un MultiMap para dejar los siguientes métodos en el mismo lugar. No lo haremos hasta preguntar.
     
     public void  makeVisible(){
         ruler.draw();
 
+    }
+    public void makeInvisible(){
+        ruler.draw();
     }
     
     public void pushCup(int id){
@@ -154,9 +158,6 @@ public class Tower
         makeVisible();
     }
     
-
-    
-    
     public void reverseTower(){
         ArrayList<Integer> positions = new ArrayList<>();
         
@@ -222,7 +223,7 @@ public class Tower
     }
     
     
-    public void liddedCups(){
+    public ArrayList<Integer> liddedCups(){
         ArrayList<Integer> positions = new ArrayList<>();
         for(int i=0;i<order.size()-1;i++){
             if(order.get(i)==-order.get(i+1)){
@@ -230,7 +231,7 @@ public class Tower
             }
             Collections.sort(positions);
         }
-        System.out.println(positions.toString());
+        return positions;
     }
     
     private boolean checkCup(int id){
@@ -302,7 +303,26 @@ public class Tower
                 item.redraw(currentX, currentY);
             }
         }
+        currentHeight = baseY;
         makeVisible();
+    }
+    
+    public String[][] stackingItems(){
+        String[][] result = new String[order.size()][2];
+        for(int i = 0; i < order.size(); i++){
+            int id = order.get(i);
+            if(id > 0){
+                result[i][0] = "cup";
+            } else {
+                result[i][0] = "lid";
+            }
+            result[i][1] = String.valueOf(Math.abs(id));
+        }
+        return result;
+    }
+    
+    public boolean ok(){
+        return true;
     }
     
     public void exit()
@@ -316,5 +336,9 @@ public class Tower
             drawTower();
         }
 
+    }
+    
+    public int height(){
+        return currentHeight;
     }
 }

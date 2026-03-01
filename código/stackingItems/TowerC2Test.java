@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 import org.junit.*;
+import java.util.*;
 
 /**
  * Casos de prueba de unidad para Tower - Ciclo 2.
@@ -137,9 +138,9 @@ public class TowerC2Test {
         tower.pushCup(3);
         tower.pushLid(3);
         tower.cover();
-        int[] lidded = tower.liddedCups();
-        assertEquals(1, lidded.length);
-        assertEquals(3, lidded[0]);
+        ArrayList<Integer> lidded = tower.liddedCups();
+        assertEquals(1, lidded.size());
+        assertEquals(3, (int) lidded.get(0));
     }
 
     @Test
@@ -148,9 +149,9 @@ public class TowerC2Test {
         tower.pushCup(5);
         tower.pushLid(3);
         tower.cover();
-        int[] lidded = tower.liddedCups();
+        ArrayList<Integer> lidded = tower.liddedCups();
         // solo la 3 debe estar tapada
-        assertEquals(1, lidded.length);
+        assertEquals(1, lidded.size());
     }
 
     // ===================== liddedCups =====================
@@ -162,16 +163,16 @@ public class TowerC2Test {
         tower.pushCup(4);
         tower.pushLid(4);
         tower.cover();
-        int[] lidded = tower.liddedCups();
-        assertEquals(2, lidded.length);
+        ArrayList<Integer> lidded = tower.liddedCups();
+        assertEquals(2, lidded.size());
     }
 
     @Test
     public void testLiddedCupsShouldReturnEmptyIfNoneCovered() {
         tower.pushCup(3);
         tower.pushCup(5);
-        int[] lidded = tower.liddedCups();
-        assertEquals(0, lidded.length);
+        ArrayList<Integer> lidded = tower.liddedCups();
+        assertEquals(0, lidded.size());
     }
 
     // ===================== height =====================
