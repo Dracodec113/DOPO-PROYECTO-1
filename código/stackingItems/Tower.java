@@ -131,6 +131,32 @@ public class Tower
         makeVisible();
     }
     
+    public void cover(){
+        ArrayList<Integer> positions = new ArrayList<>();
+        for(Integer id:items.keySet()){
+            
+            int cup=Math.abs(id);
+            if (!positions.contains(cup)){
+                    positions.add(cup);
+            }
+        }
+        order.clear();
+        for(Integer pos:positions) {
+            if (items.containsKey(pos)) {
+                order.add(pos);
+            }
+
+            if (items.containsKey(-pos)) {
+                order.add(-pos);
+            }
+        }
+        drawTower();
+        makeVisible();
+    }
+    
+
+    
+    
     public void reverseTower(){
         ArrayList<Integer> positions = new ArrayList<>();
         
