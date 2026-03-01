@@ -53,9 +53,11 @@ public class Tower
     
     public void pushCup(int id){
         int randomColor;
+        Random rand = new Random();
         if(!checkLid(-id)){
-            Random rand = new Random();
-            randomColor=rand.nextInt(5);
+            do{
+                randomColor=rand.nextInt(5);
+            }while(randomColor == lastColor);
         }
         else{
             randomColor = items.get(-id).colorNum;
@@ -67,15 +69,18 @@ public class Tower
             order.add(id);
             makeVisible();
         }
+        lastColor = randomColor;
         drawTower();
         makeVisible();
     }
     
     public void pushLid(int id){
         int randomColor;
+        Random rand = new Random();
         if(!checkCup(id)){
-            Random rand = new Random();
+            do{
             randomColor=rand.nextInt(5);
+            }while(lastColor == randomColor);
         }
         else{
             randomColor = items.get(id).colorNum;
@@ -86,6 +91,7 @@ public class Tower
             order.add(-id);
             makeVisible();
         }
+        lastColor = randomColor;
         drawTower();
         makeVisible();
     }

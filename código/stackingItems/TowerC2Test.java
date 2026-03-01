@@ -22,13 +22,13 @@ public class TowerC2Test {
     // ===================== pushCup =====================
 
     @Test
-    public void testPushCupShouldAddCup() {
+    public void shouldAddCup() {
         tower.pushCup(3);
         assertTrue(tower.ok());
     }
 
     @Test
-    public void testStackingItems() {
+    public void shouldShowCorrectlyStackingItems() {
         tower.pushCup(3);
         tower.pushLid(3);
         String[][] expected = {{"cup", "3"}, {"lid", "3"}};
@@ -38,7 +38,7 @@ public class TowerC2Test {
     // ===================== removeCup =====================
 
     @Test
-    public void testRemoveCupShouldRemoveExisting() {
+    public void shouldRemoveExistingCups() {
         tower.pushCup(3);
         tower.removeCup(3);
         String[][] items = tower.stackingItems();
@@ -48,21 +48,21 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testRemoveCupShouldNotFailIfNotExists() {
-        tower.removeCup(99); // no existe, no debe lanzar excepción
+    public void shouldNotFailIfNotExists() {
+        tower.removeCup(99);
         assertTrue(tower.ok());
     }
 
     // ===================== pushLid =====================
 
     @Test
-    public void testPushLidShouldAddLid() {
+    public void shouldAddLid() {
         tower.pushLid(3);
         assertTrue(tower.ok());
     }
 
     @Test
-    public void testPushLidShouldNotAddDuplicate() {
+    public void shouldNotAddDuplicate() {
         tower.pushLid(3);
         tower.pushLid(3);
         String[][] items = tower.stackingItems();
@@ -76,7 +76,7 @@ public class TowerC2Test {
     // ===================== removeLid =====================
 
     @Test
-    public void testRemoveLidShouldRemoveExisting() {
+    public void shouldRemoveExisting() {
         tower.pushLid(3);
         tower.removeLid(3);
         String[][] items = tower.stackingItems();
@@ -86,7 +86,7 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testRemoveLidShouldNotFailIfNotExists() {
+    public void shouldNotFailIfNotExistsLid() {
         tower.removeLid(99);
         assertTrue(tower.ok());
     }
@@ -94,7 +94,7 @@ public class TowerC2Test {
     // ===================== orderTower =====================
 
     @Test
-    public void testOrderTowerShouldSortDescending() {
+    public void shouldSortDescending() {
         tower.pushCup(2);
         tower.pushCup(5);
         tower.pushCup(1);
@@ -105,7 +105,7 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testOrderTowerLidFollowsCup() {
+    public void shouldTowerLidFollowsCup() {
         tower.pushCup(3);
         tower.pushLid(3);
         tower.pushCup(5);
@@ -122,7 +122,7 @@ public class TowerC2Test {
     // ===================== reverseTower =====================
 
     @Test
-    public void testReverseTowerShouldSortAscending() {
+    public void shouldSortAscending() {
         tower.pushCup(5);
         tower.pushCup(2);
         tower.pushCup(1);
@@ -134,7 +134,7 @@ public class TowerC2Test {
     // ===================== cover =====================
 
     @Test
-    public void testCoverShouldPlaceLidOnMatchingCup() {
+    public void shouldPlaceLidOnMatchingCup() {
         tower.pushCup(3);
         tower.pushLid(3);
         tower.cover();
@@ -144,7 +144,7 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testCoverShouldNotAffectCupsWithoutLid() {
+    public void shouldNotAffectCupsWithoutLid() {
         tower.pushCup(3);
         tower.pushCup(5);
         tower.pushLid(3);
@@ -157,7 +157,7 @@ public class TowerC2Test {
     // ===================== liddedCups =====================
 
     @Test
-    public void testLiddedCupsShouldReturnCoveredCups() {
+    public void shouldReturnCoveredCups() {
         tower.pushCup(2);
         tower.pushLid(2);
         tower.pushCup(4);
@@ -168,7 +168,7 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testLiddedCupsShouldReturnEmptyIfNoneCovered() {
+    public void shouldReturnEmptyIfNoneCovered() {
         tower.pushCup(3);
         tower.pushCup(5);
         ArrayList<Integer> lidded = tower.liddedCups();
@@ -178,12 +178,12 @@ public class TowerC2Test {
     // ===================== height =====================
 
     @Test
-    public void testHeightShouldBeZeroWhenEmpty() {
+    public void shouldBeZeroWhenEmpty() {
         assertEquals(0, tower.height());
     }
 
     @Test
-    public void testHeightShouldReflectStackedItems() {
+    public void shouldReflectStackedItems() {
         tower.pushCup(1); // altura 1 cm
         tower.pushCup(2); // altura 3 cm
         assertTrue(tower.height() > 0);
@@ -192,7 +192,7 @@ public class TowerC2Test {
     // ===================== stackingItems =====================
 
     @Test
-    public void testStackingItemsShouldReturnCorrectFormat() {
+    public void shouldReturnCorrectFormat() {
         tower.pushCup(3);
         tower.pushLid(3);
         String[][] items = tower.stackingItems();
@@ -203,7 +203,7 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testStackingItemsShouldBeEmptyWhenTowerIsEmpty() {
+    public void shouldBeEmptyWhenTowerIsEmpty() {
         String[][] items = tower.stackingItems();
         assertEquals(0, items.length);
     }
@@ -211,7 +211,7 @@ public class TowerC2Test {
     // ===================== Tower(int cups) =====================
 
     @Test
-    public void testTowerWithCupsShouldCreateCorrectNumber() {
+    public void shouldCreateCorrectNumber() {
         Tower t = new Tower(4);
         t.makeInvisible();
         String[][] items = t.stackingItems();
@@ -219,7 +219,7 @@ public class TowerC2Test {
     }
 
     @Test
-    public void testTowerWithCupsShouldNotIncludeLids() {
+    public void shouldNotIncludeLids() {
         Tower t = new Tower(4);
         t.makeInvisible();
         String[][] items = t.stackingItems();
