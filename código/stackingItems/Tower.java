@@ -251,64 +251,16 @@ public class Tower
     private void drawTower() {
         int baseY = 600;
         int currentX = 125;
-    
-        // [width, x, y, hasLid, height]
         java.util.Deque<int[]> stack = new java.util.ArrayDeque<>();
     
         for (Integer id : order) {
             StackingItem item = items.get(id);
-            int itemWidth = Math.abs(id) * 20;
-            int itemHeight = item.getHeight();
-            int floorThickness = 20;
-    
-            if (id > 0) {
-                // Buscar contenedor válido: más ancho y sin lid
-                // NO sacamos copas más pequeñas solo buscamos el primer válido
-                int[] validContainer = null;
-                int[] topItem = null; // el item más reciente dentro del contenedor válido
-    
-                for (int[] entry : stack) { // stack itera de tope a fondo
-                    if (entry[0] > itemWidth && entry[3] == 0) {
-                        validContainer = entry;
-                        break;
-                    } else if (entry[0] > itemWidth && entry[3] == 1) {
-                        // tiene lid, no puede anidar
-                        break;
-                    }
-                    if (topItem == null) topItem = entry;
-                }
-    
-                if (validContainer != null) {
-                    // la base del item toca la cima del topItem dentro del contenedor
-                    // o el piso del contenedor si no hay nada dentro
-                    int offset = (validContainer[0] - itemWidth) / 2;
-                    currentX = validContainer[1] + offset;
-    
-                    if (topItem != null && topItem[0] < validContainer[0]) {
-                        // hay algo dentro, apoyarse encima de ese algo
-                        currentX = topItem[1] + (topItem[0] - itemWidth) / 2;
-                        baseY = topItem[2]; // cima del item de abajo
-                    } else {
-                        baseY = validContainer[2] + validContainer[4] - floorThickness;
-                    }
-    
-                } else {
-                    // Va encima de la torre
-                    currentX = 125;
-                }
-    
-                int currentY = baseY - itemHeight;
-                baseY = currentY;
-                stack.push(new int[]{itemWidth, currentX, currentY, 0, itemHeight});
-                item.redraw(currentX, currentY);
-    
-            } else { // lid
-                if (!stack.isEmpty()) stack.peek()[3] = 1;
-                int currentY = baseY - itemHeight;
-                baseY = currentY;
-                item.redraw(currentX, currentY);
-            }
+            int[] placement = item.placeCorrectPosition(baseY, currentX, stack);
+            baseY = placement[2]; 
+            stack.push(placement);
+            item.redraw(placement[1], placement[2]);
         }
+    
         currentHeight = baseY;
         makeVisible();
     }
