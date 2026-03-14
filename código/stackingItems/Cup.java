@@ -41,6 +41,7 @@ public class Cup extends StackingItem {
             if (topItem == null) topItem = entry;
         }
     
+        
         int finalX = currentX;
         int finalY = baseY;
     
