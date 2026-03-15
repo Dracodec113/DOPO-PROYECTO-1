@@ -67,6 +67,7 @@ public class Tower
             Cup cup = new Cup(id, colors.get(randomColor), (2*id) - 1, 125, 125, randomColor);
             items.put(id, cup);
             order.add(id);
+            drawTower();
             makeVisible();
         }
         lastColor = randomColor;
@@ -249,20 +250,30 @@ public class Tower
     }
     
     private void drawTower() {
-        int baseY = 600;
+        int groundLevel = 600;
         int currentX = 125;
         java.util.Deque<int[]> stack = new java.util.ArrayDeque<>();
+        int currentBaseY = groundLevel; 
+        int topPointY = groundLevel; 
     
         for (Integer id : order) {
             StackingItem item = items.get(id);
-            int[] placement = item.placeCorrectPosition(baseY, currentX, stack);
-            baseY = placement[2]; 
+
+            int[] placement = item.placeCorrectPosition(currentBaseY, currentX, stack);
+            
+            if (placement[2] < topPointY) {
+                topPointY = placement[2];
+            }
+    
+            if (stack.isEmpty() || placement[0] >= stack.peek()[0]) {
+                 currentBaseY = placement[2];
+            }
+    
             stack.push(placement);
             item.redraw(placement[1], placement[2]);
         }
-    
-        currentHeight = baseY;
-        makeVisible();
+        currentHeight = (groundLevel - topPointY) / 20; 
+        
     }
     
     public String[][] stackingItems(){
