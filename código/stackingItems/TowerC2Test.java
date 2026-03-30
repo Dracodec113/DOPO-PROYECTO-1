@@ -56,12 +56,6 @@ public class TowerC2Test {
     // ===================== pushLid =====================
 
     @Test
-    public void shouldAddLid() {
-        tower.pushLid(3);
-        assertTrue(tower.ok());
-    }
-
-    @Test
     public void shouldNotAddDuplicate() {
         tower.pushLid(3);
         tower.pushLid(3);

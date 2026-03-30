@@ -96,6 +96,32 @@ public class Tower
         drawTower();
         makeVisible();
     }
+    public void pushLid(String type, int id) {
+        int randomColor;
+        Random rand = new Random();
+        if (!checkCup(id)) {
+            do {
+                randomColor = rand.nextInt(5);
+            } while (lastColor == randomColor);
+        } else {
+            randomColor = items.get(id).colorNum;
+        }
+    
+        if (!checkLid(id)) {
+            Lid lid;
+            if (type.equals("crazy")) {
+                lid = new CrazyLid(id, colors.get(randomColor), 125, 140, randomColor);
+            } else {
+                lid = new Lid(id, colors.get(randomColor), 125, 140, randomColor);
+            }
+            items.put(-id, lid);
+            order.add(0, -id);
+            makeVisible();
+        }
+        lastColor = randomColor;
+        drawTower();
+        makeVisible();
+    }
     
     public void removeCup(int id){
         if(checkCup(id)){
