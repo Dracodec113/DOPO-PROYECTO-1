@@ -67,6 +67,7 @@ public class Tower
             Cup cup = new Cup(id, colors.get(randomColor), (2*id) - 1, 125, 125, randomColor);
             items.put(id, cup);
             order.add(id);
+            drawTower();
             makeVisible();
         }
         lastColor = randomColor;
@@ -249,68 +250,30 @@ public class Tower
     }
     
     private void drawTower() {
-        int baseY = 600;
+        int groundLevel = 600;
         int currentX = 125;
-    
-        // [width, x, y, hasLid, height]
         java.util.Deque<int[]> stack = new java.util.ArrayDeque<>();
+        int currentBaseY = groundLevel; 
+        int topPointY = groundLevel; 
     
         for (Integer id : order) {
             StackingItem item = items.get(id);
-            int itemWidth = Math.abs(id) * 20;
-            int itemHeight = item.getHeight();
-            int floorThickness = 20;
-    
-            if (id > 0) {
-                // Buscar contenedor válido: más ancho y sin lid
-                // NO sacamos copas más pequeñas solo buscamos el primer válido
-                int[] validContainer = null;
-                int[] topItem = null; // el item más reciente dentro del contenedor válido
-    
-                for (int[] entry : stack) { // stack itera de tope a fondo
-                    if (entry[0] > itemWidth && entry[3] == 0) {
-                        validContainer = entry;
-                        break;
-                    } else if (entry[0] > itemWidth && entry[3] == 1) {
-                        // tiene lid, no puede anidar
-                        break;
-                    }
-                    if (topItem == null) topItem = entry;
-                }
-    
-                if (validContainer != null) {
-                    // la base del item toca la cima del topItem dentro del contenedor
-                    // o el piso del contenedor si no hay nada dentro
-                    int offset = (validContainer[0] - itemWidth) / 2;
-                    currentX = validContainer[1] + offset;
-    
-                    if (topItem != null && topItem[0] < validContainer[0]) {
-                        // hay algo dentro, apoyarse encima de ese algo
-                        currentX = topItem[1] + (topItem[0] - itemWidth) / 2;
-                        baseY = topItem[2]; // cima del item de abajo
-                    } else {
-                        baseY = validContainer[2] + validContainer[4] - floorThickness;
-                    }
-    
-                } else {
-                    // Va encima de la torre
-                    currentX = 125;
-                }
-    
-                int currentY = baseY - itemHeight;
-                baseY = currentY;
-                stack.push(new int[]{itemWidth, currentX, currentY, 0, itemHeight});
-                item.redraw(currentX, currentY);
-    
-            } else { // lid
-                if (!stack.isEmpty()) stack.peek()[3] = 1;
-                int currentY = baseY - itemHeight;
-                baseY = currentY;
-                item.redraw(currentX, currentY);
+
+            int[] placement = item.placeCorrectPosition(currentBaseY, currentX, stack);
+            
+            if (placement[2] < topPointY) {
+                topPointY = placement[2];
             }
+    
+            if (stack.isEmpty() || placement[0] >= stack.peek()[0]) {
+                 currentBaseY = placement[2];
+            }
+    
+            stack.push(placement);
+            item.redraw(placement[1], placement[2]);
         }
-        currentHeight = baseY;
-        makeVisible();
+        currentHeight = (groundLevel - topPointY) / 20; 
+        
     }
     
     public String[][] stackingItems(){

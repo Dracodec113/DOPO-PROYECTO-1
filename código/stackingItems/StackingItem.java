@@ -34,14 +34,10 @@ public abstract class StackingItem
     {
         return color;
     }
-    public void drawStackingItem(){
-        
-    }
     
+    public abstract int[] placeCorrectPosition(int baseY, int currentX, java.util.Deque<int[]> stack);
     public abstract void eraseShape();
-    public abstract void redraw(int x, int y);   
-    //public abstract void makeVisible();
-    //public abstract void makeInvisible();
-    //public abstract void moveVertical(int distance);
-    //public abstract void moveHorizontal(int distance);
+    public abstract void redraw(int x, int y);  
+    
+
 }

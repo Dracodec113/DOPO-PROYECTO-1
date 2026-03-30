@@ -22,4 +22,10 @@ public class Lid extends StackingItem {
     public void eraseShape(){
         lidShape.erase();
     }
+    
+    @Override
+    public int[] placeCorrectPosition(int baseY, int currentX, java.util.Deque<int[]> stack) {
+        if (!stack.isEmpty()) stack.peek()[3] = 1;
+        return new int[]{getHeight(), currentX, baseY - getHeight(), 1, getHeight()};
+    }
 }
