@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Write a description of class StackingItem here.
@@ -34,10 +36,19 @@ public abstract class StackingItem
     {
         return color;
     }
-    
+    public ArrayList<Integer> onPush(ArrayList<Integer> order, HashMap<Integer, StackingItem> items) {
+        return new ArrayList<>();
+    }
+
+    public boolean canBeRemoved(ArrayList<Integer> order) {
+        return true;
+    }
+    public boolean isFearful() {
+        return false;
+    }
     public abstract int[] placeCorrectPosition(int baseY, int currentX, java.util.Deque<int[]> stack);
     public abstract void eraseShape();
     public abstract void redraw(int x, int y);  
-    
+
 
 }

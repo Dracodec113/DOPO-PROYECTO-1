@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.*;
 import javax.swing.JOptionPane;
 /**
@@ -74,6 +73,48 @@ public class Tower
         drawTower();
         makeVisible();
     }
+
+    public void pushCup(String type, int id) {
+        int randomColor;
+        Random rand = new Random();
+        if (!checkLid(-id)) {
+            do {
+                randomColor = rand.nextInt(5);
+            } while (randomColor == lastColor);
+        } else {
+            randomColor = items.get(-id).colorNum;
+        }
+
+        if (!checkCup(id)) {
+            Cup cup;
+            if (type.equals("opener")) {
+                cup = new OpenerCup(id, colors.get(randomColor), (2 * id) - 1, 125, 125, randomColor);
+            } else if (type.equals("hierarchical")) {
+                cup = new HierarchicalCup(id, colors.get(randomColor), (2 * id) - 1, 125, 125, randomColor);
+            } else {
+                cup = new Cup(id, colors.get(randomColor), (2 * id) - 1, 125, 125, randomColor);
+            }
+
+            ArrayList<Integer> affected = cup.onPush(order, items);
+
+            items.put(id, cup);
+            order.add(id);
+
+            if (cup.isOpener()) {
+                for (Integer affectedId : affected) {
+                    items.get(affectedId).eraseShape();
+                    items.remove(affectedId);
+                    order.remove(affectedId);
+                }
+            } else if (cup.isHierarchical()) {
+                order.removeAll(affected);
+                order.addAll(affected);
+            }
+        }
+        lastColor = randomColor;
+        drawTower();
+        makeVisible();
+    }
     
     public void pushLid(int id){
         int randomColor;
@@ -106,16 +147,26 @@ public class Tower
         } else {
             randomColor = items.get(id).colorNum;
         }
-    
+
         if (!checkLid(id)) {
+            // Regla FearfulLid: no entra si su taza compañera no está
+            if (type.equals("fearful") && !checkCup(id)) {
+                System.out.println("FearfulLid " + id + " no puede entrar: su taza no está.");
+                return;
+            }
+
             Lid lid;
             if (type.equals("crazy")) {
                 lid = new CrazyLid(id, colors.get(randomColor), 125, 140, randomColor);
+                order.add(0, -id);
+            } else if (type.equals("fearful")) {
+                lid = new FearfulLid(id, colors.get(randomColor), 125, 140, randomColor);
+                order.add(-id);
             } else {
                 lid = new Lid(id, colors.get(randomColor), 125, 140, randomColor);
+                order.add(-id);
             }
             items.put(-id, lid);
-            order.add(0, -id);
             makeVisible();
         }
         lastColor = randomColor;
@@ -123,8 +174,17 @@ public class Tower
         makeVisible();
     }
     
-    public void removeCup(int id){
-        if(checkCup(id)){
+    public void removeCup(int id) {
+        if (checkCup(id)) {
+            if (!items.get(id).canBeRemoved(order)) {
+                System.out.println("Esta copa no puede salir.");
+                return;
+            }
+            if (checkLid(id) && items.get(-id).isFearful()) {
+                items.get(-id).eraseShape();
+                items.remove(-id);
+                order.remove(Integer.valueOf(-id));
+            }
             items.get(id).eraseShape();
             items.remove(id);
             order.remove(Integer.valueOf(id));
@@ -133,8 +193,13 @@ public class Tower
         makeVisible();
     }
     
-    public void removeLid(int id){
-        if(checkLid(id)){
+    public void removeLid(int id) {
+        if (checkLid(id)) {
+            // Regla FearfulLid: recalcular posición y revisar si está tapando su taza
+            if (items.get(-id).isFearful() && isCoveringCompanion(id)) {
+                System.out.println("FearfulLid " + id + " no puede salir: está tapando a su taza.");
+                return;
+            }
             items.get(-id).eraseShape();
             items.remove(-id);
             order.remove(Integer.valueOf(-id));
@@ -142,6 +207,8 @@ public class Tower
         drawTower();
         makeVisible();
     }
+
+
     
     public void orderTower(){
         ArrayList<Integer> positions = new ArrayList<>();
@@ -335,5 +402,10 @@ public class Tower
     
     public int height(){
         return currentHeight;
+    }
+    private boolean isCoveringCompanion(int id) {
+        int lidIndex = order.indexOf(-id);
+        int cupIndex = order.indexOf(id);
+        return cupIndex >= 0 && lidIndex == cupIndex + 1;
     }
 }

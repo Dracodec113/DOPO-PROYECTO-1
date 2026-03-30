@@ -58,5 +58,11 @@ public class Cup extends StackingItem {
     
         return new int[]{itemWidth, finalX, finalY - getHeight(), 0, getHeight()};
     }
+    public boolean isHierarchical() {
+        return false;
+    }
+    public boolean isOpener() {
+        return false;
+    }
 }
 

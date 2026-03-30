@@ -14,4 +14,6 @@ comment5.params=
 comment5.target=void\ eraseShape()
 comment6.params=x\ y
 comment6.target=void\ redraw(int,\ int)
-numComments=7
+comment7.params=
+comment7.target=boolean\ isFearful()
+numComments=8
