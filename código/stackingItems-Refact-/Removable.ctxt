@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Removable
+comment0.text=\r\n\ Interface\ to\ check\ if\ an\ item\ can\ be\ legally\ removed\ from\ the\ tower.\r\n
+comment1.params=currentOrder
+comment1.target=boolean\ canRemove(java.util.ArrayList)
+comment1.text=\r\n\ Checks\ if\ the\ item\ can\ be\ removed\ based\ on\ the\ current\ tower\ state.\r\n\ @param\ currentOrder\ The\ current\ list\ of\ keys.\r\n\ @return\ true\ if\ the\ removal\ is\ allowed,\ false\ otherwise.\r\n
+numComments=2
