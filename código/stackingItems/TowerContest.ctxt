@@ -1,16 +1,36 @@
 #BlueJ class context
 comment0.target=TowerContest
+<<<<<<< Updated upstream:código/stackingItems/TowerContest.ctxt
 comment0.text=\r\n\ Resuelve\ y\ simula\ el\ Problem\ J\ -\ Stacking\ Cups.\r\n\r\n\ @author\ Jeronimo\ Moreno\r\n\ @version\ 1.0\r\n
 comment1.params=n\ h
 comment1.target=java.lang.String\ solve(int,\ int)
+=======
+comment1.params=n\ h
+comment1.target=java.lang.String\ solve(int,\ int)
+comment1.text=\r\n\ @param\ n\ N\u00FAmero\ de\ tazas\ (taza\ i\ tiene\ altura\ 2i-1).\r\n\ @param\ h\ Altura\ objetivo\ de\ la\ torre\ en\ unidades.\r\n\ @return\ Cadena\ con\ el\ orden\ de\ alturas,\ o\ "impossible".\r\n
+>>>>>>> Stashed changes:código/stackingItems-Refact-/domain/TowerContest.ctxt
 comment2.params=n\ h
 comment2.target=void\ simulate(int,\ int)
 comment3.params=arr\ start\ h
 comment3.target=java.lang.String\ permute(int[],\ int,\ int)
 comment4.params=order
 comment4.target=int\ calculateHeight(int[])
+<<<<<<< Updated upstream:código/stackingItems/TowerContest.ctxt
 comment5.params=arr\ i\ j
 comment5.target=void\ swap(int[],\ int,\ int)
 comment6.params=arr
 comment6.target=java.lang.String\ arrayToString(int[])
 numComments=7
+=======
+comment4.text=\r\n\ Calcula\ la\ altura\ total\ de\ una\ torre\ dado\ un\ orden\ de\ tazas.\r\n\r\n
+comment5.params=n
+comment5.target=int\ maxHeight(int)
+comment5.text=\r\n\ Calcula\ la\ altura\ m\u00E1xima\ posible\ con\ n\ tazas\ (todas\ apiladas\ una\ encima\ de\ otra).\r\n\ @param\ n\ N\u00FAmero\ de\ tazas.\r\n\ @return\ Suma\ de\ todas\ las\ alturas\:\ 1\ +\ 3\ +\ 5\ +\ ...\ +\ (2n-1)\ \=\ n\u00B2\r\n
+comment6.params=arr\ i\ j
+comment6.target=void\ swap(int[],\ int,\ int)
+comment6.text=\r\n\ Intercambia\ dos\ elementos\ en\ un\ arreglo.\r\n
+comment7.params=arr
+comment7.target=java.lang.String\ arrayToString(int[])
+comment7.text=\r\n\ Convierte\ un\ arreglo\ de\ enteros\ a\ String\ separado\ por\ espacios.\r\n\ Ejemplo\:\ [1,\ 3,\ 5]\ \u2192\ "1\ 3\ 5"\r\n
+numComments=8
+>>>>>>> Stashed changes:código/stackingItems-Refact-/domain/TowerContest.ctxt
