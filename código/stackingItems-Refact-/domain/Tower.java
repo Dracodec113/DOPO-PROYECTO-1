@@ -45,7 +45,7 @@ public class Tower {
         // 2. Dibujar cuadrícula de 20x20
         this.grid.drawDebugGrid(); 
     }
-    
+
     /**
      * Constructor de sobrecarga mejorado.
      * Si pides 5 cups, crea un espacio de 600x600 para que todo quepa 
@@ -673,6 +673,84 @@ public class Tower {
         return type.equalsIgnoreCase("normal") || 
                type.equalsIgnoreCase("crazy") || 
                type.equalsIgnoreCase("fearful");
+    }
+    
+    public static void main(String[] args) {
+    
+        Tower tower = new Tower(600, 600);
+    
+        while (true) {
+    
+            String option = JOptionPane.showInputDialog(
+                "Seleccione una opción:\n" +
+                "1. Tower Contest\n" +
+                "2. Push Cup\n" +
+                "3. Push Lid\n" +
+                "4. Pop Cup\n" +
+                "5. Pop Lid\n" +
+                "6. Order Tower\n" +
+                "7. Reverse Tower\n" +
+                "8. Exit\n" +
+                "(También puedes escribir 'exit')"
+            );
+            if (option == null || option.equalsIgnoreCase("exit") || option.equals("8")) {
+                System.exit(0);
+            }
+    
+            switch (option) {
+    
+                case "1":
+                    String nString = JOptionPane.showInputDialog("Ingrese n:");
+                    String favString = JOptionPane.showInputDialog("Ingrese número favorito:");
+    
+                    int n = Integer.parseInt(nString);
+                    int favoriteNumber = Integer.parseInt(favString);
+    
+                    TowerContest contest = new TowerContest();
+                    contest.simulate(n, favoriteNumber);
+                    contest.solve(n, favoriteNumber);
+                    break;
+    
+                case "2":
+                    int cupId = Integer.parseInt(
+                        JOptionPane.showInputDialog("ID de la taza:")
+                    );
+                    String cupType = JOptionPane.showInputDialog(
+                        "Tipo (normalCup, opener, hierarchical):"
+                    );
+                    tower.pushCup(cupType, cupId);
+                    break;
+    
+                case "3":
+                    int lidId = Integer.parseInt(
+                        JOptionPane.showInputDialog("ID de la tapa:")
+                    );
+                    String lidType = JOptionPane.showInputDialog(
+                        "Tipo (normal, crazy, fearful):"
+                    );
+                    tower.pushLid(lidType, lidId);
+                    break;
+    
+                case "4":
+                    tower.popCup();
+                    break;
+    
+                case "5":
+                    tower.popLid();
+                    break;
+    
+                case "6":
+                    tower.orderTower();
+                    break;
+    
+                case "7":
+                    tower.reverseTower();
+                    break;
+    
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción inválida");
+            }
+        }
     }
 }
     
