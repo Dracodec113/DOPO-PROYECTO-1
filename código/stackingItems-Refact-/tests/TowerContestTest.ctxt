@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=TowerContestTest
+comment0.text=\r\n\ The\ test\ class\ TowerContestTest.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ shouldSolveKnownCase()
+comment2.params=
+comment2.target=void\ shouldSayImpossible()
+numComments=3
