@@ -1,6 +1,5 @@
 package domain;
 
-import javax.swing.JOptionPane;
 /**
  * Resuelve y simula el Problem J - Stacking Cups.
  *
@@ -16,7 +15,6 @@ public class TowerContest {
         }
         String result = permute(heights, 0, h);
         if (result == null) return "impossible";
-        JOptionPane.showMessageDialog(null, result);
         return result;
     }
 
