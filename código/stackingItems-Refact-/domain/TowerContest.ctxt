@@ -1,16 +1,15 @@
 #BlueJ class context
 comment0.target=TowerContest
-comment0.text=\r\n\ Resuelve\ y\ simula\ el\ Problem\ J\ -\ Stacking\ Cups.\r\n\r\n\ @author\ Jeronimo\ Moreno\r\n\ @version\ 1.0\r\n
 comment1.params=n\ h
-comment1.target=java.lang.String\ solve(int,\ int)
-comment2.params=n\ h
-comment2.target=void\ simulate(int,\ int)
-comment3.params=arr\ start\ h
-comment3.target=java.lang.String\ permute(int[],\ int,\ int)
-comment4.params=order
-comment4.target=int\ calculateHeight(int[])
-comment5.params=arr\ i\ j
-comment5.target=void\ swap(int[],\ int,\ int)
-comment6.params=arr
-comment6.target=java.lang.String\ arrayToString(int[])
-numComments=7
+comment1.target=java.lang.String\ solve(int,\ long)
+comment2.params=n
+comment2.target=java.lang.String\ buildSpecialCase(int)
+comment2.text=\r\n\ Construye\ manualmente\ el\ patr\u00F3n\ para\ el\ caso\ especial\ 2n+1.\r\n\ Ejemplo\ para\ n\=4\:\ "7\ 3\ 5\ 1"\r\n
+comment3.params=order
+comment3.target=long\ calculateHeight(int[])
+comment3.text=\r\n\ Calcula\ la\ altura\ f\u00EDsica\ real\ rastreando\ el\ borde\ y\ el\ fondo\ de\ cada\ taza.\r\n
+comment4.params=n\ h
+comment4.target=void\ simulate(int,\ int)
+comment5.params=stack
+comment5.target=java.lang.String\ dequeToString(java.util.Deque)
+numComments=6

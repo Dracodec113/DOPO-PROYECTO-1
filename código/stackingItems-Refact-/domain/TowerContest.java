@@ -1,98 +1,114 @@
 package domain;
+import java.util.*;
 
-/**
- * Resuelve y simula el Problem J - Stacking Cups.
- *
- * @author Jeronimo Moreno
- * @version 1.0
- */
 public class TowerContest {
 
-    public static String solve(int n, int h) {
-        int[] heights = new int[n];
-        for (int i = 0; i < n; i++) {
-            heights[i] = 2 * (i + 1) - 1;
+    public static String solve(int n, long h) {
+        long minH = 2L * n - 1;
+        long maxH = (long) n * n;
+
+        // Casos que matemáticamente son imposibles
+        if (h < minH || h > maxH || h == maxH - 2) return "impossible"; 
+        
+        // CASO ESPECIAL: h = 2n + 1 (Solo aplicable si n >= 4)
+        if (h == minH + 2) {
+            if (n < 4) return "impossible"; 
+            return buildSpecialCase(n);
         }
-        String result = permute(heights, 0, h);
-        if (result == null) return "impossible";
-        return result;
+
+        Deque<Integer> stack = new ArrayDeque<>();
+        long diff = h - minH;
+        stack.add(2 * n - 1); // La taza más grande es la base del anidamiento
+
+        // Algoritmo Greedy Corregido
+        for (int i = n - 1; i >= 1; i--) {
+            int cupValue = 2 * i - 1;
+            int gainIfStacked = cupValue; // La ganancia es el valor total de la taza
+
+            if (diff >= gainIfStacked && diff - gainIfStacked != 2) {
+                stack.addFirst(cupValue); // Se apila ARRIBA (crea secuencia ascendente)
+                diff -= gainIfStacked;
+            } else {
+                stack.addLast(cupValue);  // Se mete ADENTRO (secuencia descendente)
+            }
+        }
+        
+        return diff == 0 ? dequeToString(stack) : "impossible";
+    }
+
+    /**
+     * Construye manualmente el patrón para el caso especial 2n+1.
+     * Ejemplo para n=4: "7 3 5 1"
+     */
+    private static String buildSpecialCase(int n) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(2 * n - 1).append(" 3 ").append(2 * n - 3);
+        for (int i = n - 2; i >= 1; i--) {
+            int cup = 2 * i - 1;
+            if (cup != 3) { 
+                sb.append(" ").append(cup);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Calcula la altura física real rastreando el borde y el fondo de cada taza.
+     */
+    public static long calculateHeight(int[] order) {
+        if (order.length == 0) return 0;
+        
+        long maxH = 0;
+        long currentRim = 0;   // Borde superior de la taza actual
+        long currentFloor = 0; // Fondo interno de la taza actual
+        
+        for (int i = 0; i < order.length; i++) {
+            int cup = order[i];
+            
+            if (i == 0) {
+                currentRim = cup;
+                currentFloor = 1;
+            } else {
+                int prevCup = order[i-1];
+                if (cup < prevCup) {
+                    // VA ADENTRO: Se apoya en el fondo interno
+                    currentRim = currentFloor + cup;
+                    currentFloor = currentFloor + 1; // Sube 1cm por el grosor de la base
+                } else {
+                    // VA ENCIMA: Su base se apoya EXACTAMENTE sobre el borde anterior
+                    currentFloor = currentRim + 1; 
+                    currentRim = currentRim + cup;
+                }
+            }
+            maxH = Math.max(maxH, currentRim); 
+        }
+        return maxH;
     }
 
     public static void simulate(int n, int h) {
-        String result = solve(n, h);
+        String result = solve(n, (long)h);
+        System.out.println("Orden encontrado para h=" + h + ": " + result);
+
         if ("impossible".equals(result)) {
-            javax.swing.JOptionPane.showMessageDialog(
-                null, "Imposible: no existe orden para altura " + h);
+            javax.swing.JOptionPane.showMessageDialog(null, "Imposible para altura " + h);
             return;
         }
-        Tower tower = new Tower(25, 25);
-        for (String s : result.split(" ")) {
+
+        Tower tower = new Tower(600, 600);
+        String[] parts = result.split(" ");
+        for (String s : parts) {
             int height = Integer.parseInt(s);
             int id = (height + 1) / 2;
             tower.pushCup(id);
         }
+        tower.makeVisible();
     }
 
-    private static String permute(int[] arr, int start, int h) {
-        if (start == arr.length) {
-            int altura = calculateHeight(arr);
-            System.out.println(arrayToString(arr) + " -> " + altura);
-            if (altura == h) return arrayToString(arr);
-            return null;
+    private static String dequeToString(Deque<Integer> stack) {
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pollFirst()).append(stack.isEmpty() ? "" : " ");
         }
-        for (int i = start; i < arr.length; i++) {
-            swap(arr, start, i);
-            String result = permute(arr, start + 1, h);
-            if (result != null) return result;
-            swap(arr, start, i);
-        }
-        return null;
-    }
-
-    private static int calculateHeight(int[] order) {
-        int towerHeight = 0;
-        int floorInside = 0;
-        int container = 0;
-
-        System.out.print("  calculando: ");
-        for (int i = 0; i < order.length; i++) {
-            int cup = order[i];
-            System.out.print("cup=" + cup + " tower=" + towerHeight + 
-                           " container=" + container + " floor=" + floorInside + " | ");
-            
-            if (towerHeight == 0) {
-                towerHeight = cup;
-                container = cup;
-            } else if (cup < container) {
-                if (cup + floorInside > container) {
-                    towerHeight = towerHeight - container + cup + floorInside;
-                    container = cup + floorInside + 1;
-                    floorInside = 0;
-                } else {
-                    floorInside = Math.max(floorInside, cup + 1);
-                }
-            } else {
-                towerHeight = towerHeight + cup;
-                container = cup;
-                floorInside = 0;
-            }
-        }
-        System.out.println("=> " + towerHeight);
-        return towerHeight;
-    }
-
-    private static void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
-    }
-
-    private static String arrayToString(int[] arr) {
-        String result = "";
-        for (int i = 0; i < arr.length; i++) {
-            if (i > 0) result += " ";
-            result += arr[i];
-        }
-        return result;
+        return sb.toString();
     }
 }
