@@ -100,9 +100,8 @@ public class Tower {
             String key = makeKey(type, id);
             Cup cup;
             
-            // CORRECCIÓN: Se agrega el parámetro 'type' requerido por el nuevo constructor de Cup
+
             if (type.equalsIgnoreCase("opener")) {
-                // Asumiendo que OpenerCup recibe los mismos parámetros
                 cup = new OpenerCup(id, COLORS[colorIndex], 0, 0, colorIndex, type);
             } else if (type.equalsIgnoreCase("hierarchical")) {
                 cup = new HierarchicalCup(id, COLORS[colorIndex], 0, 0, colorIndex, type);
@@ -110,11 +109,8 @@ public class Tower {
                 cup = new Cup(id, COLORS[colorIndex], 0, 0, colorIndex, type);
             }
             
-            // Guardamos la referencia en el diccionario
             items.put(key, cup);
             
-            // CORRECCIÓN: Le pasamos el control absoluto al objeto para que se inserte en el order.
-            // Eliminamos la llamada directa a order.add(key)
             ArrayList<Integer> affected = cup.onPush(order, items, key);
             
             processSpecialEffects(cup, affected);
@@ -190,20 +186,18 @@ public class Tower {
             return;
         }
     
+        // Obtenemos la llave del objeto en el tope de la torre
         String topKey = order.get(order.size() - 1);
         StackingItem item = items.get(topKey);
     
+        // Verificamos que efectivamente sea una taza
         if (item instanceof Lid) {
             showError("El tope de la torre es una tapa (" + topKey + "), no una taza.\n" +
                       "Usa popLid() para sacar tapas.");
             return;
         }
     
-        if (item != null) item.erase();
-        items.remove(topKey);
-        order.remove(order.size() - 1);
-     
-        drawTower();
+        executeRemoval(topKey);
     }
 
     public void popLid() {
@@ -221,11 +215,7 @@ public class Tower {
             return;
         }
     
-        if (item != null) item.erase();
-        items.remove(topKey);
-        order.remove(order.size() - 1);
-     
-        drawTower();
+        executeRemoval(topKey);
     }
 
     public void removeCup(int id) {

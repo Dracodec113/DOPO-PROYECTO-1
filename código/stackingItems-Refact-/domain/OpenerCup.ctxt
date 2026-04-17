@@ -1,9 +1,7 @@
 #BlueJ class context
 comment0.target=OpenerCup
-comment0.text=\r\n\ OpenerCup\:\ Elimina\ todas\ las\ tapas\ que\ le\ impiden\ el\ paso.\r\n\ Una\ tapa\ impide\ el\ paso\ si\ su\ tama\u00F1o\ (id)\ es\ menor\ al\ de\ esta\ taza.\r\n
 comment1.params=id\ color\ x\ y\ colorNum\ type
 comment1.target=OpenerCup(int,\ java.lang.String,\ int,\ int,\ int,\ java.lang.String)
 comment2.params=currentOrder\ items\ myKey
 comment2.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap,\ java.lang.String)
-comment2.text=\r\n\ Al\ entrar\ a\ la\ torre,\ identifica\ las\ tapas\ menores\ que\ ella\ para\ eliminarlas.\r\n
 numComments=3

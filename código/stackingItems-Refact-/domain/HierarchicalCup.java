@@ -14,10 +14,10 @@ public class HierarchicalCup extends Cup {
 
     @Override
     public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items, String myKey) {
-         this.key = myKey;
+        this.key = myKey;
 
         int insertAt = currentOrder.size(); 
-        
+ 
         for (int i = 0; i < currentOrder.size(); i++) {
             String otherKey = currentOrder.get(i);
             StackingItem otherItem = items.get(otherKey);
@@ -33,11 +33,14 @@ public class HierarchicalCup extends Cup {
         
         currentOrder.add(insertAt, myKey);
         
-        return new ArrayList<>();
+        return new ArrayList<Integer>();
     }
     
     @Override
     public boolean canRemove(ArrayList<String> order) {
-        return order.indexOf(this.key) != 0;
+        if (order.indexOf(this.key) == 0) {
+            return false;
+        }
+        return true;
     }
 }
