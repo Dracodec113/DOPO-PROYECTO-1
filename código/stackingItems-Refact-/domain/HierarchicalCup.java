@@ -2,43 +2,42 @@ package domain;
 
 import java.util.*;
 
+/**
+ * HierarchicalCup: Al entrar, desplaza hacia arriba todos los objetos de menor tamaño.
+ * Si queda en el fondo (índice 0), no se puede remover.
+ */
 public class HierarchicalCup extends Cup {
     
-    public HierarchicalCup(int id, String color, int x, int y, int colorNum) {
-        super(id, color, x, y, colorNum);
+    public HierarchicalCup(int id, String color, int x, int y, int colorNum, String type) {
+        super(id, color, x, y, colorNum, type);
     }
 
     @Override
-    public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items) {
-        // 1. Identificar mi llave exacta (debe coincidir con la de Tower)
-        String myKey = "hierarchical-" + this.id;
-        
-        // 2. Si Tower ya me agregó al final, me quito para reubicarme
-        currentOrder.remove(myKey);
-        
-        // 3. Buscar la posición correcta (Índice 0 es el fondo de la torre)
-        // Queremos que los IDs más grandes estén abajo (índices menores)
-        int insertAt = currentOrder.size(); // Por defecto, va al final (arriba)
+    public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items, String myKey) {
+         this.key = myKey;
+
+        int insertAt = currentOrder.size(); 
         
         for (int i = 0; i < currentOrder.size(); i++) {
-            String currentKey = currentOrder.get(i);
-            try {
-                String[] parts = currentKey.split("-");
-                int currentId = Integer.parseInt(parts[parts.length - 1]);
-                
-                // Si mi ID es mayor al de la posición actual, yo debo ir DEBAJO de él
-                if (this.id > currentId) {
+            String otherKey = currentOrder.get(i);
+            StackingItem otherItem = items.get(otherKey);
+            
+            if (otherItem != null) {
+
+                if (this.id > otherItem.id) {
                     insertAt = i;
                     break;
                 }
-            } catch (Exception e) {
-                continue;
             }
         }
         
-        // 4. Insertar en la posición calculada
         currentOrder.add(insertAt, myKey);
         
-        return new ArrayList<>(); // No elimina a nadie
+        return new ArrayList<>();
+    }
+    
+    @Override
+    public boolean canRemove(ArrayList<String> order) {
+        return order.indexOf(this.key) != 0;
     }
 }

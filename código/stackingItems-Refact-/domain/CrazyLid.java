@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * CrazyLid: en lugar de tapar a su taza, se ubica de base de la misma.
@@ -18,23 +19,19 @@ public class CrazyLid extends Lid {
      * y se inserta justo en su misma posición (desplazándola hacia arriba).
      */
 
-    public void addToOrder(ArrayList<String> order, String myKey) {
-        String myCupKey = "Cup" + this.id; // Asumiendo que el formato de key es Cup + id
-        
-        int cupIndex = order.indexOf(myCupKey);
-        
-        if (cupIndex != -1) {
-            // Si la taza está, la tapa se mete en su índice (la base de la taza)
-            order.add(cupIndex, myKey);
-        } else {
-            // Si la taza no está, el enunciado no especifica, 
-            // pero podrías ponerla al fondo de la torre por defecto.
-            order.add(0, myKey);
-        }
-    }
-
     @Override
-    public boolean canRemove(ArrayList<String> currentOrder) {
-        return true;
+        public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items, String myKey) {
+            this.key = myKey;
+            int targetIndex = currentOrder.size();
+    
+            for (int i = 0; i < currentOrder.size(); i++) {
+                String k = currentOrder.get(i);
+                if (k.endsWith("-" + this.id) && !k.toLowerCase().contains("lid")) {
+                    targetIndex = i;
+                    break;
+                }
+            }
+            currentOrder.add(targetIndex, myKey);
+            return new ArrayList<>();
     }
 }

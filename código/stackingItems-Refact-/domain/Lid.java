@@ -15,7 +15,8 @@ import java.util.*;
  * @version Ciclo 4
  */
 public class Lid extends StackingItem implements Removable {
-
+    protected String type;
+    
     /**
      * Constructor de Lid.
      * @param id       Identificador de la tapa (coincide con el id de su taza).
@@ -27,9 +28,8 @@ public class Lid extends StackingItem implements Removable {
      */
     public Lid(int id, String color, int x, int y, int size, int colorNum) {
         super(id, color, x, y, colorNum);
+        this.type=type;
         this.height = 20;
-
-        // Fórmula de impares: id 1 → 1 celda | id 2 → 3 celdas | id 3 → 5 celdas
         int cellsWide = (2 * size) - 1;
         this.width = cellsWide * 20;
     }
@@ -54,4 +54,11 @@ public class Lid extends StackingItem implements Removable {
     public boolean canRemove(ArrayList<String> currentOrder) {
         return true;
     }
+    
+    public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items, String myKey) {
+        this.key = myKey; 
+        currentOrder.add(myKey);
+        return new ArrayList<>();
+    }
+
 }

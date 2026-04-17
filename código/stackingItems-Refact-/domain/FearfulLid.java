@@ -64,26 +64,17 @@ public class FearfulLid extends Lid {
      * @return false si está tapando a su taza compañera, true en cualquier otro caso.
      */
     @Override
-    public boolean canRemove(ArrayList<String> currentOrder) {
-        String myKey = "lid-" + id;
-        int myIndex = currentOrder.indexOf(myKey);
-
-        // Si no estoy en el order, no hay problema
-        if (myIndex <= 0) return true;
-
-        // Ver qué hay justo antes que yo en el order (mi posición - 1 = lo que tengo debajo)
-        String keyBelow = currentOrder.get(myIndex - 1);
-
-        // Si lo de debajo es mi taza compañera (cualquier tipo de taza con mi mismo id)
-        // entonces la estoy tapando → NO puedo salir
-        boolean coveringMyCompanion = keyBelow.endsWith("-" + id)
-                                   && !keyBelow.startsWith("lid");
-
-        if (coveringMyCompanion) {
-            return false; // El miedo me retiene
+    public boolean canRemove(ArrayList<String> order) {
+        // Usamos el atributo 'key' que guardamos en onPush
+        int myIndex = order.indexOf(this.key);
+        
+        if (myIndex > 0) {
+            String itemBelow = order.get(myIndex - 1);
+            // Si el de abajo tiene mi ID y NO es una tapa, es mi taza
+            if (itemBelow.endsWith("-" + this.id) && !itemBelow.toLowerCase().contains("lid")) {
+                return false; // Bloqueado: mi taza está justo debajo
+            }
         }
-
-        // En cualquier otro caso, puedo salir
         return true;
     }
 }

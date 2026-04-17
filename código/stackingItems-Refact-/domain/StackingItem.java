@@ -9,7 +9,7 @@ public abstract class StackingItem {
     protected int width, height;
     protected int colorNum;
     protected boolean isVisible;
-
+    protected String key;
     public StackingItem(int id, String color, int x, int y, int colorNum) {
         this.id = id;
         this.color = color;
@@ -18,7 +18,11 @@ public abstract class StackingItem {
         this.colorNum = colorNum;
         this.isVisible = false;
     }
-
+    
+    public void setKey(String key) {
+            this.key = key;
+        }
+    
     protected abstract Shape getShape();
 
     public void draw() {

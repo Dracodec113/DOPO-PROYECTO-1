@@ -1,12 +1,9 @@
 #BlueJ class context
 comment0.target=OpenerCup
-comment0.text=\r\n\ OpenerCup\ es\ una\ taza\ especial\ que\ al\ entrar\ a\ la\ torre\ elimina\r\n\ TODAS\ las\ tapas\ que\ le\ impiden\ el\ paso,\ es\ decir,\ todas\ las\ tapas\r\n\ cuyo\ ID\ sea\ menor\ al\ suyo\ (son\ m\u00E1s\ peque\u00F1as\ y\ estar\u00EDan\ encima).\r\n\r\n\ Regla\ del\ enunciado\:\r\n\ "opener\:\ elimina\ todas\ las\ tapas\ que\ le\ impiden\ el\ paso"\r\n\r\n\ @author\ Jeronimo\ Moreno\ and\ Juan\ David\ Rangel\r\n\ @version\ Ciclo\ 4\r\n
-comment1.params=id\ color\ x\ y\ colorNum
-comment1.target=OpenerCup(int,\ java.lang.String,\ int,\ int,\ int)
-comment2.params=currentOrder\ items
-comment2.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap)
-comment2.text=\r\n\ Al\ entrar\ a\ la\ torre,\ elimina\ TODAS\ las\ tapas\ que\ le\ impiden\ el\ paso.\r\n\ Una\ tapa\ "impide\ el\ paso"\ si\ su\ tama\u00F1o\ (id)\ es\ menor\ al\ de\ esta\ taza,\r\n\ porque\ estar\u00EDa\ flotando\ sobre\ ella\ sin\ poder\ asentarse.\r\n\r\n\ Retorna\ una\ lista\ de\ IDs\ de\ tapas\ a\ eliminar\ para\ que\ Tower\r\n\ las\ borre\ del\ HashMap,\ del\ order\ y\ del\ canvas.\r\n\r\n\ @param\ currentOrder\ Lista\ actual\ de\ keys\ en\ la\ torre.\r\n\ @param\ items\ \ \ \ \ \ \ \ Mapa\ de\ todos\ los\ items.\r\n\ @return\ Lista\ de\ IDs\ de\ tapas\ que\ deben\ ser\ eliminadas.\r\n
-comment3.params=key
-comment3.target=int\ extractId(java.lang.String)
-comment3.text=\r\n\ Extrae\ el\ ID\ num\u00E9rico\ de\ una\ key\ con\ formato\ "tipo-id".\r\n\ @param\ key\ La\ key\ a\ parsear.\r\n\ @return\ El\ ID\ num\u00E9rico,\ o\ -1\ si\ no\ se\ puede\ parsear.\r\n
-numComments=4
+comment0.text=\r\n\ OpenerCup\:\ Elimina\ todas\ las\ tapas\ que\ le\ impiden\ el\ paso.\r\n\ Una\ tapa\ impide\ el\ paso\ si\ su\ tama\u00F1o\ (id)\ es\ menor\ al\ de\ esta\ taza.\r\n
+comment1.params=id\ color\ x\ y\ colorNum\ type
+comment1.target=OpenerCup(int,\ java.lang.String,\ int,\ int,\ int,\ java.lang.String)
+comment2.params=currentOrder\ items\ myKey
+comment2.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap,\ java.lang.String)
+comment2.text=\r\n\ Al\ entrar\ a\ la\ torre,\ identifica\ las\ tapas\ menores\ que\ ella\ para\ eliminarlas.\r\n
+numComments=3

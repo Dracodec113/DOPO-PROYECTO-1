@@ -1,7 +1,10 @@
 #BlueJ class context
 comment0.target=HierarchicalCup
-comment1.params=id\ color\ x\ y\ colorNum
-comment1.target=HierarchicalCup(int,\ java.lang.String,\ int,\ int,\ int)
-comment2.params=currentOrder\ items
-comment2.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap)
-numComments=3
+comment0.text=\r\n\ HierarchicalCup\:\ Al\ entrar,\ desplaza\ hacia\ arriba\ todos\ los\ objetos\ de\ menor\ tama\u00F1o.\r\n\ Si\ queda\ en\ el\ fondo\ (\u00EDndice\ 0),\ no\ se\ puede\ remover.\r\n
+comment1.params=id\ color\ x\ y\ colorNum\ type
+comment1.target=HierarchicalCup(int,\ java.lang.String,\ int,\ int,\ int,\ java.lang.String)
+comment2.params=currentOrder\ items\ myKey
+comment2.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap,\ java.lang.String)
+comment3.params=order
+comment3.target=boolean\ canRemove(java.util.ArrayList)
+numComments=4

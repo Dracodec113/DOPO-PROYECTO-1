@@ -5,63 +5,49 @@ import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Cup extends StackingItem implements Stackable {
+// Agregamos implements Removable para que Tower pueda preguntar canRemove
+public class Cup extends StackingItem implements Stackable, Removable {
     
-    // CELL_SIZE debe ser 20 para coincidir con TowerGrid
+    protected String type; 
     private static final int CELL_SIZE = 20;
 
-    public Cup(int id, String color, int x, int y, int colorNum) {
+    // Añadimos String type al parámetro del constructor
+    public Cup(int id, String color, int x, int y, int colorNum, String type) {
         super(id, color, x, y, colorNum);
+        this.type = type; // Ahora sí se asigna correctamente
         
-        // El ancho debe ser impar para que la torre tenga un eje central
-        // id 1 -> 1 celda | id 2 -> 3 celdas | id 3 -> 5 celdas
         int cellsWide = (2 * id) - 1;
-        
         this.width = cellsWide * CELL_SIZE; 
-        this.height = cellsWide * CELL_SIZE; // O la altura que prefieras
+        this.height = cellsWide * CELL_SIZE;
     }
 
     @Override
     protected Shape getShape() {
         Path2D.Double path = new Path2D.Double();
-        
-        // Para que se vea como una taza que ocupa cuadros enteros:
-        // El grosor de la pared será de exactamente 1 celda (20px)
         int thickness = CELL_SIZE; 
 
-        // 1. Empezamos en la esquina superior izquierda (x, y)
         path.moveTo(x, y);
-        
-        // 2. Bajamos hasta el fondo (Pared izquierda externa)
         path.lineTo(x, y + height); 
-        
-        // 3. Vamos a la derecha (Suelo externo)
         path.lineTo(x + width, y + height); 
-        
-        // 4. Subimos (Pared derecha externa)
         path.lineTo(x + width, y); 
-        
-        // --- HUECO INTERNO (La "U" por dentro) ---
-        
-        // 5. Entramos el grosor de la pared derecha
         path.lineTo(x + width - thickness, y);
-        
-        // 6. Bajamos hasta el fondo interno (dejando el suelo de 20px)
         path.lineTo(x + width - thickness, y + height - thickness);
-        
-        // 7. Vamos a la izquierda hasta la pared interna izquierda
         path.lineTo(x + thickness, y + height - thickness);
-        
-        // 8. Subimos hasta el tope de la pared izquierda
         path.lineTo(x + thickness, y);
-        
         path.closePath();
 
         return path;
     }
 
     @Override
-    public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items) {
+    public ArrayList<Integer> onPush(ArrayList<String> currentOrder, HashMap<String, StackingItem> items, String myKey) {
+        this.key = myKey; 
+        currentOrder.add(myKey);
         return new ArrayList<>(); 
+    }
+
+    @Override
+    public boolean canRemove(ArrayList<String> order) {
+        return true; 
     }
 }

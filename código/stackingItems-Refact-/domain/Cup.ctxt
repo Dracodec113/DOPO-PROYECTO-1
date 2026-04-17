@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Cup
-comment1.params=id\ color\ x\ y\ colorNum
-comment1.target=Cup(int,\ java.lang.String,\ int,\ int,\ int)
+comment1.params=id\ color\ x\ y\ colorNum\ type
+comment1.target=Cup(int,\ java.lang.String,\ int,\ int,\ int,\ java.lang.String)
 comment2.params=
 comment2.target=java.awt.Shape\ getShape()
-comment3.params=currentOrder\ items
-comment3.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap)
-numComments=4
+comment3.params=currentOrder\ items\ myKey
+comment3.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap,\ java.lang.String)
+comment4.params=order
+comment4.target=boolean\ canRemove(java.util.ArrayList)
+numComments=5

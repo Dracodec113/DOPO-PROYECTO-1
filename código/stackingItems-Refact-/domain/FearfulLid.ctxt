@@ -7,7 +7,7 @@ comment1.text=\r\n\ Constructor\ de\ FearfulLid.\r\n\ @param\ id\ \ \ \ \ \ \ Id
 comment2.params=
 comment2.target=boolean\ requiresCompanion()
 comment2.text=\r\n\ Indica\ a\ Tower\ que\ esta\ tapa\ requiere\ que\ su\ taza\ compa\u00F1era\ est\u00E9\ en\ la\ torre\r\n\ antes\ de\ poder\ entrar.\r\n\ Tower\ consulta\ este\ m\u00E9todo\ en\ pushLid()\ antes\ de\ instanciar\ la\ tapa.\r\n\r\n\ @return\ true\ \u2014\ FearfulLid\ siempre\ requiere\ su\ compa\u00F1era.\r\n
-comment3.params=currentOrder
+comment3.params=order
 comment3.target=boolean\ canRemove(java.util.ArrayList)
 comment3.text=\r\n\ Regla\ de\ salida\ de\ FearfulLid\:\r\n\ -\ Si\ est\u00E1\ tapando\ directamente\ a\ su\ taza\ (la\ taza\ est\u00E1\ justo\ antes\ en\ el\ order),\r\n\ \ \ NO\ puede\ salir.\ El\ miedo\ la\ retiene.\r\n\ -\ Si\ no\ est\u00E1\ tapando\ a\ su\ taza\ (la\ taza\ no\ est\u00E1\ o\ hay\ algo\ entre\ ellas),\r\n\ \ \ S\u00CD\ puede\ salir.\r\n\r\n\ Ejemplo\ de\ order\ donde\ NO\ puede\ salir\:\r\n\ \ \ [...,\ "normalCup-3",\ "lid-3"]\ \ \u2190\ taza\ justo\ antes\ \=\ cubriendo\ \=\ no\ sale\r\n\r\n\ Ejemplo\ de\ order\ donde\ S\u00CD\ puede\ salir\:\r\n\ \ \ [...,\ "normalCup-3",\ "normalCup-1",\ "lid-3"]\ \ \u2190\ hay\ algo\ entre\ ellas\ \=\ sale\r\n\ \ \ [...,\ "lid-3"]\ \ \u2190\ su\ taza\ no\ est\u00E1\ \=\ sale\ (ya\ no\ tiene\ a\ quien\ tapar)\r\n\r\n\ @param\ currentOrder\ Lista\ actual\ de\ keys\ en\ la\ torre.\r\n\ @return\ false\ si\ est\u00E1\ tapando\ a\ su\ taza\ compa\u00F1era,\ true\ en\ cualquier\ otro\ caso.\r\n
 numComments=4

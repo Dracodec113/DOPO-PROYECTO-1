@@ -10,4 +10,6 @@ comment2.text=\r\n\ Define\ la\ forma\ visual\ de\ la\ tapa\:\ un\ rect\u00E1ngu
 comment3.params=currentOrder
 comment3.target=boolean\ canRemove(java.util.ArrayList)
 comment3.text=\r\n\ Una\ tapa\ normal\ siempre\ puede\ ser\ removida.\r\n\ Las\ subclases\ (FearfulLid)\ sobreescriben\ este\ m\u00E9todo\ para\ a\u00F1adir\ restricciones.\r\n\r\n\ @param\ currentOrder\ Lista\ actual\ de\ keys\ en\ la\ torre.\r\n\ @return\ true\ siempre\ para\ la\ tapa\ normal.\r\n
-numComments=4
+comment4.params=currentOrder\ items\ myKey
+comment4.target=java.util.ArrayList\ onPush(java.util.ArrayList,\ java.util.HashMap,\ java.lang.String)
+numComments=5
