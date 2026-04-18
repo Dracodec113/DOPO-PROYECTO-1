@@ -1,4 +1,3 @@
-// tests/CupTest.java
 package tests;
 
 import domain.*;
@@ -14,12 +13,11 @@ public class CupTest {
 
     @Before
     public void setUp() {
-        cup = new Cup(3, "yellow", 0, 0, 3);
+        cup = new Cup(3, "yellow", 0, 0, 3, "standard");
     }
 
     @Test
     public void shouldHaveCorrectWidth() {
-        // id=3 → cellsWide = (2*3)-1 = 5 → width = 5*20 = 100
         assertEquals(100, cup.getWidth());
     }
 
@@ -27,13 +25,13 @@ public class CupTest {
     public void shouldReturnEmptyListOnPush() {
         ArrayList<String> order = new ArrayList<>();
         HashMap<String, StackingItem> items = new HashMap<>();
-        ArrayList<Integer> affected = cup.onPush(order, items);
+        ArrayList<Integer> affected = cup.onPush(order, items, "cup1");
         assertTrue(affected.isEmpty());
+        assertEquals(1, order.size());
     }
 
     @Test
     public void shouldHaveCorrectHeight() {
-        // id=3 → cellsWide = 5 → height = 5*20 = 100
         assertEquals(100, cup.getHeight());
     }
 }

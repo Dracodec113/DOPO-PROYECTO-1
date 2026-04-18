@@ -1,4 +1,3 @@
-// tests/LidTest.java
 package tests;
 
 import domain.*;
@@ -26,7 +25,6 @@ public class LidTest {
 
     @Test
     public void shouldHaveCorrectWidth() {
-        // id=2 → cellsWide = (2*2)-1 = 3 → width = 3*20 = 60
         assertEquals(60, lid.getWidth());
     }
 

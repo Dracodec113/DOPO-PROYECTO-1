@@ -17,24 +17,46 @@ public class CrazyLidTest {
     }
 
     @Test
-    public void shouldGoToBase() {
-        assertTrue(crazyLid.goesToBase());
-    }
-
-    @Test
     public void shouldAlwaysBeRemovable() {
         ArrayList<String> order = new ArrayList<>();
-        order.add("normalCup-3");
-        order.add("lid-3");
+        order.add("cup-3");
+        order.add("crazylid-3");
         assertTrue(crazyLid.canRemove(order));
     }
 
     @Test
     public void shouldBeRemovableEvenWhenCoveringCompanion() {
-        // CrazyLid no tiene regla de salida — siempre puede salir
         ArrayList<String> order = new ArrayList<>();
-        order.add("lid-3");
-        order.add("normalCup-3");
+        order.add("crazylid-3");
+        order.add("cup-3");
         assertTrue(crazyLid.canRemove(order));
+    }
+
+    @Test
+    public void shouldInsertAtCompanionPosition() {
+        ArrayList<String> order = new ArrayList<>();
+        HashMap<String, StackingItem> items = new HashMap<>();
+        
+        order.add("cup-1");
+        order.add("cup-3");
+        order.add("cup-5");
+
+        crazyLid.onPush(order, items, "crazylid-3");
+
+        assertEquals(1, order.indexOf("crazylid-3"));
+        assertEquals(2, order.indexOf("cup-3"));
+    }
+
+    @Test
+    public void shouldInsertAtEndIfNoCompanionFound() {
+        ArrayList<String> order = new ArrayList<>();
+        HashMap<String, StackingItem> items = new HashMap<>();
+        
+        order.add("cup-1");
+        order.add("cup-2");
+
+        crazyLid.onPush(order, items, "crazylid-3");
+
+        assertEquals(2, order.indexOf("crazylid-3"));
     }
 }

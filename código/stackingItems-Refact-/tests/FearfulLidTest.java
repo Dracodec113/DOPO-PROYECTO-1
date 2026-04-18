@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FearfulLidTest {
 
@@ -22,20 +23,40 @@ public class FearfulLidTest {
 
     @Test
     public void shouldNotBeRemovableWhenCoveringCompanion() {
-        // La taza está justo antes que la tapa en el order
         ArrayList<String> order = new ArrayList<>();
-        order.add("normalCup-3");
-        order.add("lid-3");
+        HashMap<String, StackingItem> items = new HashMap<>();
+        
+        order.add("cup-3");
+        order.add("fearful-3");
+        
+        fearfulLid.onPush(new ArrayList<>(), items, "fearful-3");
+
         assertFalse(fearfulLid.canRemove(order));
     }
 
     @Test
     public void shouldBeRemovableWhenNotCoveringCompanion() {
-        // Hay algo entre la taza y la tapa
         ArrayList<String> order = new ArrayList<>();
-        order.add("normalCup-3");
-        order.add("normalCup-1");
-        order.add("lid-3");
+        HashMap<String, StackingItem> items = new HashMap<>();
+        
+        order.add("cup-3");
+        order.add("cup-1");
+        order.add("fearful-3");
+        
+        fearfulLid.onPush(new ArrayList<>(), items, "fearful-3");
+
+        assertTrue(fearfulLid.canRemove(order));
+    }
+
+    @Test
+    public void shouldBeRemovableIfNoItemBelow() {
+        ArrayList<String> order = new ArrayList<>();
+        HashMap<String, StackingItem> items = new HashMap<>();
+        
+        order.add("fearful-3");
+        
+        fearfulLid.onPush(new ArrayList<>(), items, "fearful-3");
+
         assertTrue(fearfulLid.canRemove(order));
     }
 }
