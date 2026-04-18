@@ -1,9 +1,18 @@
 package presentation;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Shape;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Canvas is a class to allow for simple graphical drawing on a canvas.

@@ -1,10 +1,15 @@
 package tests;
 
-import domain.*;
-import org.junit.Test;
-import org.junit.Before;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import domain.Tower;
 
 public class TowerTest {
 
@@ -43,6 +48,34 @@ public class TowerTest {
         assertEquals(1, count);
     }
 
+    @Test
+    public void shouldNotPushInvalidCupType() {
+        Tower tower = new Tower(5);
+        tower.pushCup("tipoInvalido", 10); 
+    }
+
+    @Test
+    public void shouldNotPopLidWhenEmpty() {
+        Tower tower = new Tower(0);
+        tower.popLid();
+    }
+
+    @Test
+    public void shouldHandleVisibility() {
+        Tower tower = new Tower(3);
+        tower.makeVisible();
+        tower.makeInvisible();
+    }
+
+    @Test
+    public void shouldOrderAndReverseTower() {
+        Tower tower = new Tower(3);
+        tower.pushCup("normal", 1);
+        tower.pushCup("normal", 2);
+        tower.orderTower();
+        tower.reverseTower();
+    }
+    
     @Test
     public void shouldAddLidToTower() {
         tower.pushCup(3);
@@ -162,6 +195,45 @@ public class TowerTest {
         assertFalse(lid2Found);
     }
 
+    @Test
+    public void shouldCoverExistingItems() {
+        Tower tower = new Tower(5);
+        tower.cover(); 
+    
+        tower.pushCup("normal", 10);
+        tower.pushLid("normal", 10);
+        tower.cover();
+    }
+    
+    @Test
+    public void shouldHandleInvalidSwaps() {
+        Tower tower = new Tower(5);
+        tower.pushCup("normal", 10);
+        
+        tower.swap(null, new String[]{"cup"}); 
+        
+        tower.swap(new String[]{"avion", "1"}, new String[]{"cup", "10"});
+        
+        tower.swap(new String[]{"cup", "999"}, new String[]{"cup", "10"});
+    }
+    
+    @Test
+    public void shouldTestOrderingAndReversing() {
+        Tower tower = new Tower(5);
+        tower.pushCup("normal", 10);
+        tower.pushCup("normal", 5);
+        tower.orderTower();
+        tower.reverseTower();
+    }
+
+    @Test
+    public void shouldHandleEmptyPopAndInvalidPush() {
+        Tower tower = new Tower(3);
+        tower.popLid();
+        tower.popCup();
+        tower.pushCup("tipo_inexistente", 10);
+    }
+    
     @Test
     public void shouldPopCupFromTop() {
         tower.pushCup(3);

@@ -6,7 +6,9 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import org.junit.Test;
+import org.junit.Before;
+import static org.junit.Assert.*;
 public class OpenerCupTest {
 
     private OpenerCup openerCup;

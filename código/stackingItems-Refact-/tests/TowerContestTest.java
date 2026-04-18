@@ -1,11 +1,12 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import domain.TowerContest;
 
 /**
  * The test class TowerContestTest.
@@ -26,4 +27,30 @@ public class TowerContestTest
         String result = domain.TowerContest.solve(4, 100);
         assertEquals("impossible", result);
     }
+
+
+@Test
+public void shouldHandleTowerContestLogic() {
+
+    assertEquals("impossible", TowerContest.solve(3, 2));  
+    assertEquals("impossible", TowerContest.solve(3, 10));  
+    assertEquals("impossible", TowerContest.solve(3, 7));   
+    
+
+    assertNotEquals("impossible", TowerContest.solve(4, 9));
+    assertEquals("impossible", TowerContest.solve(2, 5)); 
+
+    TowerContest.solve(4, 10); 
+	}
+
+	@Test
+	public void shouldCalculateHeightCorrectly() {
+	    int[] order1 = {7, 5, 3, 1};
+	    assertTrue(TowerContest.calculateHeight(order1) > 0);
+	    
+	    int[] order2 = {1, 3, 5, 7}; // Todo encima
+	    assertTrue(TowerContest.calculateHeight(order2) > 0);
+	    
+	    assertEquals(0, TowerContest.calculateHeight(new int[]{}));
+	}
 }

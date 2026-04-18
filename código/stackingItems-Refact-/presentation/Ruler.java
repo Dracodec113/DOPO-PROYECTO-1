@@ -1,7 +1,7 @@
 package presentation;
 
-import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 public class Ruler {
     private int xPosition;

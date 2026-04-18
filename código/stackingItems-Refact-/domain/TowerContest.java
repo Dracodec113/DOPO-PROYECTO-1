@@ -1,5 +1,6 @@
 package domain;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class TowerContest {
 
@@ -7,10 +8,8 @@ public class TowerContest {
         long minH = 2L * n - 1;
         long maxH = (long) n * n;
 
-        // Casos que matemáticamente son imposibles
         if (h < minH || h > maxH || h == maxH - 2) return "impossible"; 
         
-        // CASO ESPECIAL: h = 2n + 1 (Solo aplicable si n >= 4)
         if (h == minH + 2) {
             if (n < 4) return "impossible"; 
             return buildSpecialCase(n);
@@ -18,18 +17,18 @@ public class TowerContest {
 
         Deque<Integer> stack = new ArrayDeque<>();
         long diff = h - minH;
-        stack.add(2 * n - 1); // La taza más grande es la base del anidamiento
+        stack.add(2 * n - 1); 
 
         // Algoritmo Greedy Corregido
         for (int i = n - 1; i >= 1; i--) {
             int cupValue = 2 * i - 1;
-            int gainIfStacked = cupValue; // La ganancia es el valor total de la taza
+            int gainIfStacked = cupValue;
 
             if (diff >= gainIfStacked && diff - gainIfStacked != 2) {
-                stack.addFirst(cupValue); // Se apila ARRIBA (crea secuencia ascendente)
+                stack.addFirst(cupValue);
                 diff -= gainIfStacked;
             } else {
-                stack.addLast(cupValue);  // Se mete ADENTRO (secuencia descendente)
+                stack.addLast(cupValue); 
             }
         }
         
