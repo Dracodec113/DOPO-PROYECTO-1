@@ -5,16 +5,16 @@ import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+// Agregamos implements Removable para que Tower pueda preguntar canRemove
 public class Cup extends StackingItem implements Stackable, Removable {
     
     protected String type; 
     private static final int CELL_SIZE = 20;
 
-    
+    // Añadimos String type al parámetro del constructor
     public Cup(int id, String color, int x, int y, int colorNum, String type) {
         super(id, color, x, y, colorNum);
-        this.type = type; 
+        this.type = type; // Ahora sí se asigna correctamente
         
         int cellsWide = (2 * id) - 1;
         this.width = cellsWide * CELL_SIZE; 
